@@ -1,0 +1,35 @@
+{
+  "project": "Sample kitchen remodel",
+  "rooms": [
+    {
+      "name": "Kitchen",
+      "length_ft": 14,
+      "width_ft": 12,
+      "height_ft": 8,
+      "doors": 2,
+      "windows": 1,
+      "work_items": [
+        {"code": "dumpster"},
+        {"code": "demo_floor"},
+        {"code": "demo_cabinets", "qty": 22},
+        {"code": "demo_fixtures", "qty": 1},
+        {"code": "rough_plumbing", "qty": 1},
+        {"code": "rough_circuit", "qty": 2},
+        {"code": "device", "qty": 8},
+        {"code": "recessed_light", "qty": 6},
+        {"code": "drywall_walls", "qty": 120},
+        {"code": "prime_paint_walls"},
+        {"code": "paint_ceiling"},
+        {"code": "lvp_floor"},
+        {"code": "base_cabinets", "qty": 14},
+        {"code": "wall_cabinets", "qty": 12},
+        {"code": "countertop", "qty": 34},
+        {"code": "backsplash_tile", "qty": 30},
+        {"code": "kitchen_sink_faucet"},
+        {"code": "appliance_hookup", "qty": 2},
+        {"code": "baseboard", "qty": 20},
+        {"code": "final_clean"}
+      ]
+    }
+  ]
+}

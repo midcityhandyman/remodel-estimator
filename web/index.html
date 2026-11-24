@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Remodel Estimator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Remodel Estimator</h1>
+    <p id="sample-banner" class="banner" role="status">Loading price book...</p>
+  </header>
+
+  <main>
+    <section id="scope-panel" aria-label="Scope">
+      <h2>Scope</h2>
+      <div class="row">
+        <label>Start from an example
+          <select id="example-select"></select>
+        </label>
+        <label>Project name
+          <input id="project-name" type="text" maxlength="80">
+        </label>
+      </div>
+      <div id="rooms"></div>
+      <div class="row actions">
+        <button id="add-room" type="button" class="secondary">Add room</button>
+        <button id="run-estimate" type="button">Estimate</button>
+      </div>
+      <ul id="errors" class="errors" aria-live="polite"></ul>
+    </section>
+
+    <section id="result-panel" aria-label="Estimate">
+      <h2>Estimate</h2>
+      <p id="empty-state">Pick an example, adjust the rooms and work items, then press Estimate.</p>
+      <div id="result" hidden>
+        <div id="totals" class="cards"></div>
+        <h3>Totals</h3>
+        <table id="totals-table"></table>
+        <h3>Direct cost by trade</h3>
+        <table id="trade-table"></table>
+        <h3>Material takeoff by trade</h3>
+        <table id="takeoff-table"></table>
+        <h3>Labor by trade</h3>
+        <table id="labor-table"></table>
+        <h3>Sequence</h3>
+        <table id="schedule-table"></table>
+        <h3>Notes</h3>
+        <ul id="warnings"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>All prices are sample values. Replace the price book before quoting real work.</footer>
+  <script src="app.js"></script>
+</body>
+</html>

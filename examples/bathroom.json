@@ -1,0 +1,40 @@
+{
+  "project": "Sample hall bathroom remodel",
+  "rooms": [
+    {
+      "name": "Hall bath",
+      "length_ft": 8,
+      "width_ft": 5,
+      "height_ft": 8,
+      "doors": 1,
+      "windows": 1,
+      "work_items": [
+        {"code": "dumpster"},
+        {"code": "demo_floor"},
+        {"code": "demo_walls"},
+        {"code": "demo_fixtures", "qty": 3},
+        {"code": "rough_plumbing", "qty": 3},
+        {"code": "shower_valve"},
+        {"code": "rough_circuit"},
+        {"code": "device", "qty": 3},
+        {"code": "exhaust_fan"},
+        {"code": "insulate_walls", "qty": 40},
+        {"code": "drywall_walls", "qty": 110},
+        {"code": "drywall_ceiling"},
+        {"code": "cement_board", "qty": 75},
+        {"code": "shower_pan"},
+        {"code": "shower_waterproof", "qty": 75},
+        {"code": "tile_shower_walls", "qty": 75},
+        {"code": "prime_paint_walls", "qty": 110},
+        {"code": "paint_ceiling"},
+        {"code": "tile_floor"},
+        {"code": "vanity"},
+        {"code": "set_toilet"},
+        {"code": "bath_faucet"},
+        {"code": "baseboard"},
+        {"code": "interior_door"},
+        {"code": "final_clean"}
+      ]
+    }
+  ]
+}

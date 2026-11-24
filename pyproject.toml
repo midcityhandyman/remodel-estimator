@@ -1,0 +1,15 @@
+[project]
+name = "remodel-estimator"
+version = "0.1.0"
+description = "Remodel estimating engine: scope in, material takeoff, labor, sequence and a priced estimate out."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

@@ -1,0 +1,150 @@
+{
+  "_comment": "Work item catalog. basis is what the quantity is measured in. Material quantity = quantity * multiplier / coverage * (1 + waste), summed per SKU and rounded up to whole purchase units.",
+  "phases": {
+    "10": "Demolition",
+    "20": "Framing and subfloor",
+    "30": "Rough plumbing and electrical",
+    "40": "Insulation",
+    "50": "Drywall and backer board",
+    "55": "Shower base",
+    "60": "Waterproofing",
+    "65": "Wall tile",
+    "70": "Paint",
+    "80": "Flooring",
+    "90": "Cabinets",
+    "95": "Countertops",
+    "100": "Backsplash",
+    "110": "Finish plumbing",
+    "120": "Trim and doors",
+    "130": "Final clean"
+  },
+  "items": [
+    {"code": "dumpster", "name": "Dumpster delivery and haul away", "trade": "demolition", "phase": 10, "basis": "each", "hours_per_unit": 0.5, "setup_hours": 0,
+     "materials": [{"sku": "dumpster_10yd", "coverage": 1, "waste": 0}]},
+    {"code": "demo_floor", "name": "Remove existing flooring", "trade": "demolition", "phase": 10, "basis": "floor_sf", "hours_per_unit": 0.06, "setup_hours": 0.5,
+     "materials": [{"sku": "debris_bag", "coverage": 40, "waste": 0}]},
+    {"code": "demo_walls", "name": "Remove wall finishes to studs", "trade": "demolition", "phase": 10, "basis": "wall_sf", "hours_per_unit": 0.035, "setup_hours": 0.5,
+     "materials": [{"sku": "debris_bag", "coverage": 60, "waste": 0}]},
+    {"code": "demo_fixtures", "name": "Remove fixtures", "trade": "demolition", "phase": 10, "basis": "each", "hours_per_unit": 0.75, "setup_hours": 0, "materials": []},
+    {"code": "demo_cabinets", "name": "Remove cabinets and tops", "trade": "demolition", "phase": 10, "basis": "lf", "hours_per_unit": 0.2, "setup_hours": 0.5, "materials": []},
+
+    {"code": "frame_walls", "name": "Frame partition walls", "trade": "carpentry", "phase": 20, "basis": "lf", "hours_per_unit": 0.25, "setup_hours": 1.0,
+     "materials": [
+       {"sku": "stud_2x4_8", "coverage": 1.333, "waste": 0.10, "note": "studs at 16 inches on center"},
+       {"sku": "stud_2x4_8", "coverage": 2.667, "waste": 0.10, "note": "three plate runs"},
+       {"sku": "framing_nails_box", "coverage": 200, "waste": 0}]},
+    {"code": "subfloor_panels", "name": "Install subfloor panels", "trade": "carpentry", "phase": 20, "basis": "floor_sf", "hours_per_unit": 0.03, "setup_hours": 0.5,
+     "materials": [
+       {"sku": "subfloor_panel_4x8", "coverage": 32, "waste": 0.08},
+       {"sku": "subfloor_adhesive_tube", "coverage": 40, "waste": 0}]},
+
+    {"code": "rough_plumbing", "name": "Rough plumbing per fixture", "trade": "plumbing", "phase": 30, "basis": "each", "hours_per_unit": 3.0, "setup_hours": 1.0,
+     "materials": [{"sku": "rough_plumbing_kit", "coverage": 1, "waste": 0}]},
+    {"code": "shower_valve", "name": "Install shower valve", "trade": "plumbing", "phase": 30, "basis": "each", "hours_per_unit": 2.5, "setup_hours": 0,
+     "materials": [{"sku": "shower_valve_trim", "coverage": 1, "waste": 0}]},
+    {"code": "rough_circuit", "name": "Run new 20 amp circuit", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 2.5, "setup_hours": 0.5,
+     "materials": [
+       {"sku": "cable_12_2_50ft", "coverage": 1, "waste": 0},
+       {"sku": "breaker_20a", "coverage": 1, "waste": 0}]},
+    {"code": "device", "name": "Outlet or switch with box and plate", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 0.9, "setup_hours": 0,
+     "materials": [{"sku": "device_kit", "coverage": 1, "waste": 0}]},
+    {"code": "recessed_light", "name": "Recessed LED light", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 0.8, "setup_hours": 0,
+     "materials": [{"sku": "led_wafer_light", "coverage": 1, "waste": 0}]},
+    {"code": "exhaust_fan", "name": "Bath exhaust fan with duct", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 2.0, "setup_hours": 0,
+     "materials": [
+       {"sku": "bath_fan_80cfm", "coverage": 1, "waste": 0},
+       {"sku": "fan_duct_kit", "coverage": 1, "waste": 0}]},
+
+    {"code": "insulate_walls", "name": "Insulate walls with batts", "trade": "insulation", "phase": 40, "basis": "wall_sf", "hours_per_unit": 0.012, "setup_hours": 0.5,
+     "materials": [{"sku": "batt_r13_bundle", "coverage": 88, "waste": 0.05}]},
+
+    {"code": "drywall_walls", "name": "Hang and finish wall drywall", "trade": "drywall", "phase": 50, "basis": "wall_sf", "hours_per_unit": 0.045, "setup_hours": 1.0, "wait_days": 1,
+     "materials": [
+       {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
+       {"sku": "joint_compound_bucket", "coverage": 450, "waste": 0},
+       {"sku": "drywall_tape_roll", "coverage": 600, "waste": 0},
+       {"sku": "drywall_screws_box", "coverage": 900, "waste": 0}]},
+    {"code": "drywall_ceiling", "name": "Hang and finish ceiling drywall", "trade": "drywall", "phase": 50, "basis": "ceiling_sf", "hours_per_unit": 0.06, "setup_hours": 0.5, "wait_days": 1,
+     "materials": [
+       {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
+       {"sku": "joint_compound_bucket", "coverage": 450, "waste": 0}]},
+    {"code": "cement_board", "name": "Cement backer board", "trade": "tile", "phase": 50, "basis": "sf", "hours_per_unit": 0.05, "setup_hours": 0.5,
+     "materials": [
+       {"sku": "cement_board_3x5", "coverage": 15, "waste": 0.10},
+       {"sku": "backer_screws_box", "coverage": 150, "waste": 0}]},
+
+    {"code": "shower_pan", "name": "Set shower pan", "trade": "plumbing", "phase": 55, "basis": "each", "hours_per_unit": 3.0, "setup_hours": 0,
+     "materials": [{"sku": "shower_pan_60", "coverage": 1, "waste": 0}]},
+    {"code": "shower_waterproof", "name": "Roll on waterproofing membrane", "trade": "tile", "phase": 60, "basis": "sf", "hours_per_unit": 0.03, "setup_hours": 0.5, "wait_days": 1,
+     "requires": ["cement_board"],
+     "materials": [{"sku": "waterproof_membrane_gal", "coverage": 50, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
+    {"code": "tile_shower_walls", "name": "Tile shower walls", "trade": "tile", "phase": 65, "basis": "sf", "hours_per_unit": 0.22, "setup_hours": 1.0, "wait_days": 1,
+     "requires": ["cement_board", "shower_waterproof"],
+     "materials": [
+       {"sku": "tile_wall_sf", "coverage": 1, "waste": 0.12},
+       {"sku": "thinset_bag", "coverage": 50, "waste": 0.05},
+       {"sku": "grout_bag", "coverage": 100, "waste": 0.05}]},
+
+    {"code": "prime_paint_walls", "name": "Prime and paint walls", "trade": "paint", "phase": 70, "basis": "wall_sf", "hours_per_unit": 0.018, "setup_hours": 1.0,
+     "materials": [
+       {"sku": "primer_gal", "coverage": 300, "waste": 0.05},
+       {"sku": "wall_paint_gal", "coverage": 350, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
+    {"code": "paint_ceiling", "name": "Paint ceiling", "trade": "paint", "phase": 70, "basis": "ceiling_sf", "hours_per_unit": 0.02, "setup_hours": 0.5,
+     "materials": [{"sku": "ceiling_paint_gal", "coverage": 350, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
+
+    {"code": "tile_floor", "name": "Tile floor", "trade": "tile", "phase": 80, "basis": "floor_sf", "hours_per_unit": 0.16, "setup_hours": 1.0, "wait_days": 1,
+     "materials": [
+       {"sku": "tile_floor_sf", "coverage": 1, "waste": 0.10},
+       {"sku": "thinset_bag", "coverage": 50, "waste": 0.05},
+       {"sku": "grout_bag", "coverage": 100, "waste": 0.05}]},
+    {"code": "lvp_floor", "name": "Luxury vinyl plank floor", "trade": "flooring", "phase": 80, "basis": "floor_sf", "hours_per_unit": 0.05, "setup_hours": 1.0,
+     "materials": [
+       {"sku": "lvp_carton", "coverage": 23.6, "waste": 0.08},
+       {"sku": "underlayment_roll", "coverage": 100, "waste": 0.05}]},
+
+    {"code": "base_cabinets", "name": "Install base cabinets", "trade": "cabinetry", "phase": 90, "basis": "lf", "hours_per_unit": 0.5, "setup_hours": 1.0,
+     "materials": [
+       {"sku": "cabinet_base_lf", "coverage": 1, "waste": 0},
+       {"sku": "cabinet_screws_box", "coverage": 40, "waste": 0}]},
+    {"code": "wall_cabinets", "name": "Install wall cabinets", "trade": "cabinetry", "phase": 90, "basis": "lf", "hours_per_unit": 0.45, "setup_hours": 0.5,
+     "materials": [{"sku": "cabinet_wall_lf", "coverage": 1, "waste": 0}]},
+    {"code": "vanity", "name": "Install vanity with top", "trade": "cabinetry", "phase": 90, "basis": "each", "hours_per_unit": 2.0, "setup_hours": 0,
+     "materials": [{"sku": "vanity_36_with_top", "coverage": 1, "waste": 0}]},
+    {"code": "countertop", "name": "Template and install countertop", "trade": "cabinetry", "phase": 95, "basis": "sf", "hours_per_unit": 0.15, "setup_hours": 1.5,
+     "requires": ["base_cabinets"],
+     "materials": [{"sku": "countertop_sf", "coverage": 1, "waste": 0}]},
+    {"code": "backsplash_tile", "name": "Tile backsplash", "trade": "tile", "phase": 100, "basis": "sf", "hours_per_unit": 0.2, "setup_hours": 1.0, "wait_days": 1,
+     "requires": ["countertop"],
+     "materials": [
+       {"sku": "tile_wall_sf", "coverage": 1, "waste": 0.10},
+       {"sku": "thinset_bag", "coverage": 50, "waste": 0.05},
+       {"sku": "grout_bag", "coverage": 100, "waste": 0.05}]},
+
+    {"code": "set_toilet", "name": "Set toilet", "trade": "plumbing", "phase": 110, "basis": "each", "hours_per_unit": 1.5, "setup_hours": 0,
+     "materials": [
+       {"sku": "toilet", "coverage": 1, "waste": 0},
+       {"sku": "toilet_install_kit", "coverage": 1, "waste": 0}]},
+    {"code": "bath_faucet", "name": "Install bath faucet and drain", "trade": "plumbing", "phase": 110, "basis": "each", "hours_per_unit": 1.25, "setup_hours": 0,
+     "materials": [
+       {"sku": "bath_faucet", "coverage": 1, "waste": 0},
+       {"sku": "supply_line_kit", "coverage": 1, "waste": 0}]},
+    {"code": "kitchen_sink_faucet", "name": "Install kitchen sink and faucet", "trade": "plumbing", "phase": 110, "basis": "each", "hours_per_unit": 2.5, "setup_hours": 0,
+     "materials": [
+       {"sku": "kitchen_sink", "coverage": 1, "waste": 0},
+       {"sku": "kitchen_faucet", "coverage": 1, "waste": 0},
+       {"sku": "supply_line_kit", "coverage": 1, "waste": 0}]},
+    {"code": "appliance_hookup", "name": "Appliance water hookup", "trade": "plumbing", "phase": 110, "basis": "each", "hours_per_unit": 1.0, "setup_hours": 0,
+     "materials": [{"sku": "supply_line_kit", "coverage": 1, "waste": 0}]},
+
+    {"code": "baseboard", "name": "Install baseboard", "trade": "trim", "phase": 120, "basis": "perimeter_lf", "hours_per_unit": 0.05, "setup_hours": 0.5,
+     "materials": [
+       {"sku": "baseboard_8ft", "coverage": 8, "waste": 0.10},
+       {"sku": "caulk_tube", "coverage": 50, "waste": 0}]},
+    {"code": "interior_door", "name": "Hang prehung interior door", "trade": "trim", "phase": 120, "basis": "each", "hours_per_unit": 2.0, "setup_hours": 0,
+     "materials": [
+       {"sku": "prehung_door", "coverage": 1, "waste": 0},
+       {"sku": "door_casing_kit", "coverage": 1, "waste": 0}]},
+
+    {"code": "final_clean", "name": "Final clean and punch list", "trade": "general", "phase": 130, "basis": "floor_sf", "hours_per_unit": 0.01, "setup_hours": 1.0, "materials": []}
+  ]
+}
