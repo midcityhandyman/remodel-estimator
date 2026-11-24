@@ -5,8 +5,8 @@
     "20": "Framing and subfloor",
     "30": "Rough plumbing and electrical",
     "40": "Insulation",
+    "45": "Shower base",
     "50": "Drywall and backer board",
-    "55": "Shower base",
     "60": "Waterproofing",
     "65": "Wall tile",
     "70": "Paint",
@@ -58,6 +58,9 @@
     {"code": "insulate_walls", "name": "Insulate walls with batts", "trade": "insulation", "phase": 40, "basis": "wall_sf", "hours_per_unit": 0.012, "setup_hours": 0.5,
      "materials": [{"sku": "batt_r13_bundle", "coverage": 88, "waste": 0.05}]},
 
+    {"code": "shower_pan", "name": "Set shower pan", "trade": "plumbing", "phase": 45, "basis": "each", "hours_per_unit": 3.0, "setup_hours": 0,
+     "materials": [{"sku": "shower_pan_60", "coverage": 1, "waste": 0}]},
+
     {"code": "drywall_walls", "name": "Hang and finish wall drywall", "trade": "drywall", "phase": 50, "basis": "wall_sf", "hours_per_unit": 0.045, "setup_hours": 1.0, "wait_days": 1,
      "materials": [
        {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
@@ -73,11 +76,9 @@
        {"sku": "cement_board_3x5", "coverage": 15, "waste": 0.10},
        {"sku": "backer_screws_box", "coverage": 150, "waste": 0}]},
 
-    {"code": "shower_pan", "name": "Set shower pan", "trade": "plumbing", "phase": 55, "basis": "each", "hours_per_unit": 3.0, "setup_hours": 0,
-     "materials": [{"sku": "shower_pan_60", "coverage": 1, "waste": 0}]},
     {"code": "shower_waterproof", "name": "Roll on waterproofing membrane", "trade": "tile", "phase": 60, "basis": "sf", "hours_per_unit": 0.03, "setup_hours": 0.5, "wait_days": 1,
      "requires": ["cement_board"],
-     "materials": [{"sku": "waterproof_membrane_gal", "coverage": 50, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
+     "materials": [{"sku": "waterproof_membrane_gal", "coverage": 100, "multiplier": 2, "waste": 0.05, "note": "two coats, about 50 sf per gallon for the finished membrane"}]},
     {"code": "tile_shower_walls", "name": "Tile shower walls", "trade": "tile", "phase": 65, "basis": "sf", "hours_per_unit": 0.22, "setup_hours": 1.0, "wait_days": 1,
      "requires": ["cement_board", "shower_waterproof"],
      "materials": [

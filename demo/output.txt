@@ -60,7 +60,7 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     Fan duct and roof or wall cap kit (sample)              1.00   0.0%     1 kit        $44.00      $44.00
   [insulation]
     material                                                 net  waste   buy unit         each    extended
-    R13 batt insulation bundle, 88 sf (sample)              0.46   4.8%     1 bundle     $68.00      $68.00
+    R13 batt insulation bundle, 88 sf (sample)              0.46   5.0%     1 bundle     $68.00      $68.00
   [drywall]
     material                                                 net  waste   buy unit         each    extended
     Drywall screws, box (sample)                            0.12   0.0%     1 box        $12.00      $12.00
@@ -75,12 +75,12 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     Thinset mortar, 50 lb bag (sample)                      2.30   5.0%     3 bag        $29.00      $87.00
     Floor tile, per square foot (sample)                   40.00  10.0%    44 sf          $6.40     $281.60
     Wall tile, per square foot (sample)                    75.00  12.0%    84 sf          $5.25     $441.00
-    Liquid waterproofing membrane, gallon (sample)          3.00   5.0%     4 gal        $64.00     $256.00
+    Liquid waterproofing membrane, gallon (sample)          1.50   5.0%     2 gal        $64.00     $128.00
   [paint]
     material                                                 net  waste   buy unit         each    extended
-    Ceiling paint, gallon (sample)                          0.23   4.8%     1 gal        $36.00      $36.00
-    Primer, gallon (sample)                                 0.37   4.9%     1 gal        $27.00      $27.00
-    Wall paint, gallon (sample)                             0.63   4.9%     1 gal        $42.00      $42.00
+    Ceiling paint, gallon (sample)                          0.23   5.0%     1 gal        $36.00      $36.00
+    Primer, gallon (sample)                                 0.37   5.0%     1 gal        $27.00      $27.00
+    Wall paint, gallon (sample)                             0.63   5.0%     1 gal        $42.00      $42.00
   [cabinetry]
     material                                                 net  waste   buy unit         each    extended
     36 inch vanity with top (sample)                        1.00   0.0%     1 ea        $640.00     $640.00
@@ -116,10 +116,10 @@ SEQUENCE (18 working days, one crew per trade; start and end are working days el
        3    3.5  Hall bath    Bath exhaust fan with duct             electrical
      3.5      4  Hall bath    Install shower valve                   plumbing
        4    4.5  Hall bath    Insulate walls with batts              insulation
-     4.5      5  Hall bath    Hang and finish wall drywall           drywall     then wait 1 day to cure
-     4.5    5.5  Hall bath    Cement backer board                    tile
-       5    5.5  Hall bath    Hang and finish ceiling drywall        drywall     then wait 1 day to cure
-     6.5      7  Hall bath    Set shower pan                         plumbing
+     4.5      5  Hall bath    Set shower pan                         plumbing
+       5    5.5  Hall bath    Hang and finish wall drywall           drywall     then wait 1 day to cure
+       5      6  Hall bath    Cement backer board                    tile
+     5.5      6  Hall bath    Hang and finish ceiling drywall        drywall     then wait 1 day to cure
        7    7.5  Hall bath    Roll on waterproofing membrane         tile        then wait 1 day to cure
      8.5     11  Hall bath    Tile shower walls                      tile        then wait 1 day to cure
       12   12.5  Hall bath    Prime and paint walls                  paint
@@ -139,22 +139,22 @@ DIRECT COST BY TRADE (before tax and markups)
   electrical        $286.50      $808.50    $1,095.00
   insulation         $68.00      $110.00      $178.00
   drywall           $132.00      $575.25      $707.25
-  tile            $1,229.10    $2,552.00    $3,781.10
+  tile            $1,101.10    $2,552.00    $3,653.10
   paint             $105.00      $256.80      $361.80
   cabinetry         $640.00      $150.00      $790.00
   trim              $279.50      $266.00      $545.50
   general             $0.00      $100.00      $100.00
 
 TOTALS
-  Materials                       $4,457.10
-  Sales tax on materials            $356.57
+  Materials                       $4,329.10
+  Sales tax on materials            $346.33
   Labor                           $7,503.10
-  Direct cost                    $12,316.77
-  Overhead                        $1,231.68
-  Contingency                       $615.84
-  Profit                          $1,416.43
+  Direct cost                    $12,178.53
+  Overhead                        $1,217.85
+  Contingency                       $608.93
+  Profit                          $1,400.53
   -----------------------------------------
-  ESTIMATE TOTAL                 $15,580.72
+  ESTIMATE TOTAL                 $15,405.84
 
 NOTES
   * insulation: 0.98 estimated hours raised to the 2 hour trade minimum.
@@ -485,7 +485,7 @@ NOTES
   * Prices come from a sample price book and are not real. Replace it before quoting.
 
 SUMMARY (sample prices)
-  Sample hall bathroom remodel      18 working days   $   15,580.72
+  Sample hall bathroom remodel      18 working days   $   15,405.84
   Sample kitchen remodel            15 working days   $   23,669.78
   Sample basement finish            23 working days   $   32,538.83
 
@@ -495,4 +495,4 @@ API ROUND TRIP (local server on a free port, same engine as the CLI)
   price book     Sample price book (sample: True)
   takeoff lines  34
   working days   18
-  total          $15,580.72 (sample prices)
+  total          $15,405.84 (sample prices)

@@ -28,12 +28,7 @@ class TakeoffLine:
     net_qty: float  # purchase units needed with no waste
     raw_qty: float  # purchase units needed with waste, before rounding
     purchase_qty: int  # whole units to buy
-
-    @property
-    def waste_pct(self) -> float:
-        if self.net_qty <= 0:
-            return 0.0
-        return round((self.raw_qty / self.net_qty - 1) * 100, 1)
+    waste_pct: float  # blended waste across the items that use this SKU, in percent
 
 
 def task_quantity(room: Room, item: WorkItem, qty: float | None) -> float:
@@ -80,8 +75,10 @@ def material_takeoff(tasks: list[Task], trade_order: list[str] | None = None) ->
             raw[key] = raw.get(key, 0.0) + base * (1 + waste)
     rank = {trade: i for i, trade in enumerate(trade_order or [])}
     keys = sorted(net, key=lambda k: (rank.get(k[0], len(rank)), k[0], k[1]))
+    # Waste percent comes from the unrounded sums, so a 5 percent factor on a
+    # fraction of a gallon still reads 5.0 and not 4.8.
     return [
-        TakeoffLine(trade, sku, round(net[(trade, sku)], 3), round(raw[(trade, sku)], 3),
-                    whole_units(raw[(trade, sku)]))
-        for trade, sku in keys
+        TakeoffLine(key[0], key[1], round(net[key], 3), round(raw[key], 3), whole_units(raw[key]),
+                    round((raw[key] / net[key] - 1) * 100, 1) if net[key] > 0 else 0.0)
+        for key in keys
     ]

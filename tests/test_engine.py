@@ -47,6 +47,7 @@ def test_paint_takeoff_uses_coats_and_net_wall_area(catalog):
     # 176 sf net wall: primer 176 / 300 * 1.05 = 0.62, paint two coats 176 * 2 / 350 * 1.05 = 1.06
     assert lines["primer_gal"].purchase_qty == 1
     assert lines["wall_paint_gal"].purchase_qty == 2
+    assert lines["primer_gal"].waste_pct == 5.0  # from unrounded sums, not the rounded display values
 
 
 def test_explicit_quantity_overrides_geometry(catalog):
@@ -75,7 +76,7 @@ def test_same_sku_from_two_items_in_one_trade_is_merged(catalog):
     lines = takeoff_for(scope, catalog)
     # thinset: (40 + 75) / 50 * 1.05 = 2.415
     assert lines["thinset_bag"].purchase_qty == 3
-    assert lines["waterproof_membrane_gal"].purchase_qty == 4  # 75 * 2 / 50 * 1.05 = 3.15
+    assert lines["waterproof_membrane_gal"].purchase_qty == 2  # 75 * 2 / 100 * 1.05 = 1.575
 
 
 # ---- labor -----------------------------------------------------------------
@@ -109,7 +110,7 @@ def test_phases_run_in_order_within_a_room(example):
     est = estimate(example("bathroom"))
     steps = step_map(est)
     room = "Hall bath"
-    chain = ["demo_walls", "rough_plumbing", "insulate_walls", "drywall_walls", "shower_pan",
+    chain = ["demo_walls", "rough_plumbing", "insulate_walls", "shower_pan", "cement_board",
              "shower_waterproof", "tile_shower_walls", "prime_paint_walls", "tile_floor", "vanity",
              "set_toilet", "baseboard", "final_clean"]
     for earlier, later in zip(chain, chain[1:]):
