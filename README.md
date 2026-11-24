@@ -1,5 +1,7 @@
 # remodel-estimator
 
+**Live demo:** https://remodel-estimator-beige.vercel.app (read-only: the three bundled examples with sample prices, built by `python demo/build_static_site.py` from the same engine. Clone the repo to estimate your own scope.)
+
 Turn a measured remodel scope into an estimate a crew can build from: what to buy by trade (with waste, rounded up to whole boxes, bags and sheets), labor hours by trade, the order of work, and a price.
 
 It is for remodeling contractors and for people building estimating tools for them. Estimating by hand means redoing the same takeoff, waste, labor and markup arithmetic on every job, and small slips compound into a wrong price. Here you describe the job once (rooms, dimensions, work items) and the same rules run every time, from a catalog and a price book you control.
@@ -144,7 +146,7 @@ python -m pytest
 
 On macOS or Linux the second line is `source .venv/bin/activate`.
 
-There are 105 tests covering room geometry, scope validation, takeoff and waste math, labor minimums, sequencing rules, the trade logic (floor substrate, rough and finish visits, drywall coats, baseboard deductions, fastener coverage, pinned production rates), pricing arithmetic checked against a hand calculation, the CLI, and the API over a real local socket. CI (`.github/workflows/ci.yml`) runs the tests and the demo on Python 3.10 and 3.12.
+There are 114 tests covering room geometry, scope validation, takeoff and waste math, labor minimums, sequencing rules, the trade logic (floor substrate, rough and finish visits, drywall coats, baseboard deductions, fastener coverage, pinned production rates), pricing arithmetic checked against a hand calculation, the CLI, the API over a real local socket, and the static demo site (its JSON must equal what the engine and the API return). CI (`.github/workflows/ci.yml`) runs the tests, the demo and the static site build on Python 3.10 and 3.12.
 
 ## Demo
 
