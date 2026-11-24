@@ -44,6 +44,18 @@ function numberField(label, room, key, step) {
   return el("label", { text: label }, [input]);
 }
 
+// Wall runs with no baseboard (tub, vanity, cabinets). The scope keeps them as a
+// labelled list; the form edits the total and keeps the labels until it changes.
+function deductionField(room) {
+  const total = (room.base_deductions || []).reduce((sum, d) => sum + (Number(d.lf) || 0), 0);
+  const input = el("input", { type: "number", min: "0", step: "0.5", value: String(total) });
+  input.addEventListener("input", () => {
+    const value = Number(input.value);
+    room.base_deductions = value > 0 ? [{ label: "runs with no baseboard", lf: value }] : [];
+  });
+  return el("label", { text: "No baseboard ft" }, [input]);
+}
+
 function itemRow(room, item) {
   const selected = room.work_items.find((w) => w.code === item.code);
   const id = `item-${state.scope.rooms.indexOf(room)}-${item.code}`;
@@ -84,6 +96,7 @@ function roomCard(room, index) {
     numberField("Height ft", room, "height_ft", "0.5"),
     numberField("Doors", room, "doors", "1"),
     numberField("Windows", room, "windows", "1"),
+    deductionField(room),
   ]);
   const items = el("div", { class: "items" });
   for (const phase of state.catalog.phases) {
@@ -180,16 +193,17 @@ function renderEstimate(est) {
   ], est.labor);
 
   table("schedule-table", [
-    { label: "Start day", num: true, value: (r) => num(r.start_day, 1) },
-    { label: "End day", num: true, value: (r) => num(r.end_day, 1) },
+    { label: "Start day", num: true, value: (r) => num(r.start_day) },
+    { label: "End day", num: true, value: (r) => num(r.end_day) },
     { label: "Room", value: (r) => r.room },
     { label: "Work item", value: (r) => r.name },
     { label: "Trade", value: (r) => r.trade },
     { label: "Hours", num: true, value: (r) => num(r.hours) },
-    { label: "Cure wait", value: (r) => (r.wait_days ? `${num(r.wait_days, 1)} day` : "") },
+    { label: "Then wait", value: (r) => (r.wait_days ? `${num(r.wait_days, 1)} day to ${r.wait_for}` : "") },
   ], est.schedule.steps);
 
   $("warnings").replaceChildren(...est.warnings.map((w) => el("li", { text: w })));
+  $("assumptions").replaceChildren(...est.assumptions.map((a) => el("li", { text: a })));
   $("empty-state").hidden = true;
   $("result").hidden = false;
 }

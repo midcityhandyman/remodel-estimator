@@ -1,21 +1,30 @@
 {
-  "_comment": "Work item catalog. basis is what the quantity is measured in. Material quantity = quantity * multiplier / coverage * (1 + waste), summed per SKU and rounded up to whole purchase units.",
+  "_comment": "Work item catalog. basis is what the quantity is measured in. Material quantity = quantity * multiplier / coverage * (1 + waste), summed per SKU and rounded up to whole purchase units. An item is one visit unless it has 'stages': then one selection in a scope becomes several visits, each with its own phase, hours, wait and materials (drywall coats, electrical rough-in and trim-out). An item 'note' is printed under ASSUMPTIONS whenever the item is in a scope.",
+  "_rates": "hours_per_unit and setup_hours are SAMPLE production rates. They were sanity checked against the ranges in commonly published residential repair and remodeling labor guides (annual construction cost data books, trade association labor unit manuals and manufacturer installation guides), then set toward the small room end of those ranges. Replace them with your own crew's numbers.",
   "phases": {
     "10": "Demolition",
     "20": "Framing and subfloor",
     "30": "Rough plumbing and electrical",
     "40": "Insulation",
     "45": "Shower base",
-    "50": "Drywall and backer board",
-    "60": "Waterproofing",
-    "65": "Wall tile",
+    "50": "Hang drywall and backer board",
+    "52": "Drywall tape coat",
+    "54": "Drywall second coat",
+    "56": "Drywall finish coat",
+    "58": "Drywall sanding",
+    "60": {"name": "Waterproofing", "after": [50], "_why": "the shower is waterproofed and tiled while the drywall coats dry; it waits for the boards to be hung, not for the finishing"},
+    "65": {"name": "Wall tile", "after": [60]},
     "70": "Paint",
-    "80": "Flooring",
+    "75": "Floor underlayment and prep",
+    "80": "Floor tile",
     "90": "Cabinets",
+    "92": "Floating floor",
     "95": "Countertops",
     "100": "Backsplash",
     "110": "Finish plumbing",
+    "115": "Finish electrical",
     "120": "Trim and doors",
+    "125": "Trim paint",
     "130": "Final clean"
   },
   "items": [
@@ -25,7 +34,9 @@
      "materials": [{"sku": "debris_bag", "coverage": 40, "waste": 0}]},
     {"code": "demo_walls", "name": "Remove wall finishes to studs", "trade": "demolition", "phase": 10, "basis": "wall_sf", "hours_per_unit": 0.035, "setup_hours": 0.5,
      "materials": [{"sku": "debris_bag", "coverage": 60, "waste": 0}]},
-    {"code": "demo_fixtures", "name": "Remove fixtures", "trade": "demolition", "phase": 10, "basis": "each", "hours_per_unit": 0.75, "setup_hours": 0, "materials": []},
+    {"code": "demo_fixtures", "name": "Remove fixtures", "trade": "demolition", "phase": 10, "basis": "each", "hours_per_unit": 1.25, "setup_hours": 0,
+     "_rate": "average of a toilet (under an hour), a vanity (about an hour) and a tub or shower unit (two hours or more)",
+     "materials": []},
     {"code": "demo_cabinets", "name": "Remove cabinets and tops", "trade": "demolition", "phase": 10, "basis": "lf", "hours_per_unit": 0.2, "setup_hours": 0.5, "materials": []},
 
     {"code": "frame_walls", "name": "Frame partition walls", "trade": "carpentry", "phase": 20, "basis": "lf", "hours_per_unit": 0.25, "setup_hours": 1.0,
@@ -33,27 +44,53 @@
        {"sku": "stud_2x4_8", "coverage": 1.333, "waste": 0.10, "note": "studs at 16 inches on center"},
        {"sku": "stud_2x4_8", "coverage": 2.667, "waste": 0.10, "note": "three plate runs"},
        {"sku": "framing_nails_box", "coverage": 200, "waste": 0}]},
+    {"code": "frame_walls_slab", "name": "Frame walls on concrete slab", "trade": "carpentry", "phase": 20, "basis": "lf", "hours_per_unit": 0.28, "setup_hours": 1.0,
+     "note": "Walls on a slab: pressure treated bottom plate over sill sealer, pinned with concrete fasteners about every 32 inches, then untreated studs and a double top plate.",
+     "materials": [
+       {"sku": "stud_2x4_8", "coverage": 1.333, "waste": 0.10, "note": "studs at 16 inches on center"},
+       {"sku": "stud_2x4_8", "coverage": 4, "waste": 0.10, "note": "two top plate runs"},
+       {"sku": "pt_2x4_8", "coverage": 8, "waste": 0.10, "note": "one pressure treated bottom plate run"},
+       {"sku": "sill_sealer_roll", "coverage": 50, "waste": 0},
+       {"sku": "concrete_fastener_box", "coverage": 250, "waste": 0, "note": "box of 100, one about every 32 inches"},
+       {"sku": "framing_nails_box", "coverage": 200, "waste": 0}]},
     {"code": "subfloor_panels", "name": "Install subfloor panels", "trade": "carpentry", "phase": 20, "basis": "floor_sf", "hours_per_unit": 0.03, "setup_hours": 0.5,
      "materials": [
        {"sku": "subfloor_panel_4x8", "coverage": 32, "waste": 0.08},
        {"sku": "subfloor_adhesive_tube", "coverage": 40, "waste": 0}]},
 
-    {"code": "rough_plumbing", "name": "Rough plumbing per fixture", "trade": "plumbing", "phase": 30, "basis": "each", "hours_per_unit": 3.0, "setup_hours": 1.0,
+    {"code": "rough_plumbing", "name": "Rough plumbing per fixture", "trade": "plumbing", "phase": 30, "basis": "each", "hours_per_unit": 4.0, "setup_hours": 1.0,
+     "_rate": "supply, drain and vent to one fixture location; published labor units run from about 2.5 hours for a toilet to 7 for a tub or shower",
      "materials": [{"sku": "rough_plumbing_kit", "coverage": 1, "waste": 0}]},
-    {"code": "shower_valve", "name": "Install shower valve", "trade": "plumbing", "phase": 30, "basis": "each", "hours_per_unit": 2.5, "setup_hours": 0,
-     "materials": [{"sku": "shower_valve_trim", "coverage": 1, "waste": 0}]},
+    {"code": "shower_valve", "name": "Shower valve, rough-in and trim", "trade": "plumbing", "basis": "each",
+     "note": "Plumbing fixtures with a rough-in part are two visits: the valve body goes in at rough-in, the trim and shower head after the tile is grouted.",
+     "stages": [
+       {"key": "rough", "name": "Shower valve: rough-in valve body", "phase": 30, "hours_per_unit": 2.0, "setup_hours": 0,
+        "materials": [{"sku": "shower_valve_trim", "coverage": 1, "waste": 0}]},
+       {"key": "trim", "name": "Shower valve: trim and shower head", "phase": 110, "hours_per_unit": 0.75, "setup_hours": 0, "materials": []}]},
     {"code": "rough_circuit", "name": "Run new 20 amp circuit", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 2.5, "setup_hours": 0.5,
      "materials": [
        {"sku": "cable_12_2_50ft", "coverage": 1, "waste": 0},
        {"sku": "breaker_20a", "coverage": 1, "waste": 0}]},
-    {"code": "device", "name": "Outlet or switch with box and plate", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 0.9, "setup_hours": 0,
-     "materials": [{"sku": "device_kit", "coverage": 1, "waste": 0}]},
-    {"code": "recessed_light", "name": "Recessed LED light", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 0.8, "setup_hours": 0,
-     "materials": [{"sku": "led_wafer_light", "coverage": 1, "waste": 0}]},
-    {"code": "exhaust_fan", "name": "Bath exhaust fan with duct", "trade": "electrical", "phase": 30, "basis": "each", "hours_per_unit": 2.0, "setup_hours": 0,
-     "materials": [
-       {"sku": "bath_fan_80cfm", "coverage": 1, "waste": 0},
-       {"sku": "fan_duct_kit", "coverage": 1, "waste": 0}]},
+    {"code": "device", "name": "Outlet or switch with box and plate", "trade": "electrical", "basis": "each",
+     "note": "Electrical is two visits: rough-in (boxes, cable, fan housing and duct) before insulation and drywall, then trim-out (devices, plates, light fixtures, fan grille) after paint and tile. About two thirds of the device labor is rough-in. The trim-out visit carries its own half hour of setup.",
+     "stages": [
+       {"key": "rough", "name": "Outlet or switch: rough-in box, cable", "phase": 30, "hours_per_unit": 0.6, "setup_hours": 0,
+        "materials": [{"sku": "device_kit", "coverage": 1, "waste": 0}]},
+       {"key": "finish", "name": "Outlet or switch: device and plate", "phase": 115, "hours_per_unit": 0.3, "setup_hours": 0.5, "materials": []}]},
+    {"code": "recessed_light", "name": "Recessed LED light", "trade": "electrical", "basis": "each",
+     "note": "Electrical is two visits: rough-in (boxes, cable, fan housing and duct) before insulation and drywall, then trim-out (devices, plates, light fixtures, fan grille) after paint and tile. About two thirds of the device labor is rough-in. The trim-out visit carries its own half hour of setup.",
+     "stages": [
+       {"key": "rough", "name": "Recessed light: rough-in cable", "phase": 30, "hours_per_unit": 0.5, "setup_hours": 0, "materials": []},
+       {"key": "finish", "name": "Recessed light: install fixture", "phase": 115, "hours_per_unit": 0.3, "setup_hours": 0,
+        "materials": [{"sku": "led_wafer_light", "coverage": 1, "waste": 0}]}]},
+    {"code": "exhaust_fan", "name": "Bath exhaust fan with duct", "trade": "electrical", "basis": "each",
+     "note": "Electrical is two visits: rough-in (boxes, cable, fan housing and duct) before insulation and drywall, then trim-out (devices, plates, light fixtures, fan grille) after paint and tile. About two thirds of the device labor is rough-in. The trim-out visit carries its own half hour of setup.",
+     "stages": [
+       {"key": "rough", "name": "Bath fan: housing, duct and wiring", "phase": 30, "hours_per_unit": 2.0, "setup_hours": 0,
+        "materials": [
+          {"sku": "bath_fan_80cfm", "coverage": 1, "waste": 0},
+          {"sku": "fan_duct_kit", "coverage": 1, "waste": 0}]},
+       {"key": "finish", "name": "Bath fan: grille and test", "phase": 115, "hours_per_unit": 0.5, "setup_hours": 0, "materials": []}]},
 
     {"code": "insulate_walls", "name": "Insulate walls with batts", "trade": "insulation", "phase": 40, "basis": "wall_sf", "hours_per_unit": 0.012, "setup_hours": 0.5,
      "materials": [{"sku": "batt_r13_bundle", "coverage": 88, "waste": 0.05}]},
@@ -61,20 +98,44 @@
     {"code": "shower_pan", "name": "Set shower pan", "trade": "plumbing", "phase": 45, "basis": "each", "hours_per_unit": 3.0, "setup_hours": 0,
      "materials": [{"sku": "shower_pan_60", "coverage": 1, "waste": 0}]},
 
-    {"code": "drywall_walls", "name": "Hang and finish wall drywall", "trade": "drywall", "phase": 50, "basis": "wall_sf", "hours_per_unit": 0.045, "setup_hours": 1.0, "wait_days": 1,
-     "materials": [
-       {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
-       {"sku": "joint_compound_bucket", "coverage": 450, "waste": 0},
-       {"sku": "drywall_tape_roll", "coverage": 600, "waste": 0},
-       {"sku": "drywall_screws_box", "coverage": 900, "waste": 0}]},
-    {"code": "drywall_ceiling", "name": "Hang and finish ceiling drywall", "trade": "drywall", "phase": 50, "basis": "ceiling_sf", "hours_per_unit": 0.06, "setup_hours": 0.5, "wait_days": 1,
-     "materials": [
-       {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
-       {"sku": "joint_compound_bucket", "coverage": 450, "waste": 0}]},
+    {"code": "drywall_ceiling", "name": "Hang and finish ceiling drywall", "trade": "drywall", "basis": "ceiling_sf",
+     "note": "Drywall is five visits: hang, tape coat, second coat, finish coat, sand, with one dry day after each coat (all purpose premixed compound at normal room conditions). Ceilings are hung before walls. Compound is one 4.5 gallon bucket per 450 sf across the three coats.",
+     "stages": [
+       {"key": "hang", "name": "Hang ceiling drywall", "phase": 50, "hours_per_unit": 0.022, "setup_hours": 0.25,
+        "materials": [
+          {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
+          {"sku": "drywall_screws_box", "coverage": 750, "waste": 0, "note": "5 lb box, about 1,300 screws, 12 inches on center on ceilings"}]},
+       {"key": "tape", "name": "Ceiling drywall: tape coat", "phase": 52, "hours_per_unit": 0.013, "setup_hours": 0.25, "wait_days": 1, "wait_for": "dry",
+        "materials": [
+          {"sku": "drywall_tape_roll", "coverage": 600, "waste": 0, "note": "250 ft roll"},
+          {"sku": "joint_compound_bucket", "coverage": 1125, "waste": 0, "note": "tape coat is about 40 percent of the compound"}]},
+       {"key": "second", "name": "Ceiling drywall: second coat", "phase": 54, "hours_per_unit": 0.009, "setup_hours": 0, "wait_days": 1, "wait_for": "dry",
+        "materials": [{"sku": "joint_compound_bucket", "coverage": 1500, "waste": 0}]},
+       {"key": "finish", "name": "Ceiling drywall: finish coat", "phase": 56, "hours_per_unit": 0.009, "setup_hours": 0, "wait_days": 1, "wait_for": "dry",
+        "materials": [{"sku": "joint_compound_bucket", "coverage": 1500, "waste": 0}]},
+       {"key": "sand", "name": "Ceiling drywall: sand", "phase": 58, "hours_per_unit": 0.007, "setup_hours": 0, "materials": []}]},
+    {"code": "drywall_walls", "name": "Hang and finish wall drywall", "trade": "drywall", "basis": "wall_sf",
+     "note": "Drywall is five visits: hang, tape coat, second coat, finish coat, sand, with one dry day after each coat (all purpose premixed compound at normal room conditions). Ceilings are hung before walls. Compound is one 4.5 gallon bucket per 450 sf across the three coats.",
+     "stages": [
+       {"key": "hang", "name": "Hang wall drywall", "phase": 50, "hours_per_unit": 0.017, "setup_hours": 0.5,
+        "materials": [
+          {"sku": "drywall_sheet_4x8", "coverage": 32, "waste": 0.12},
+          {"sku": "drywall_screws_box", "coverage": 900, "waste": 0, "note": "5 lb box, about 1,300 screws, 16 inches on center on walls"}]},
+       {"key": "tape", "name": "Wall drywall: tape coat", "phase": 52, "hours_per_unit": 0.010, "setup_hours": 0.5, "wait_days": 1, "wait_for": "dry",
+        "materials": [
+          {"sku": "drywall_tape_roll", "coverage": 600, "waste": 0, "note": "250 ft roll"},
+          {"sku": "joint_compound_bucket", "coverage": 1125, "waste": 0, "note": "tape coat is about 40 percent of the compound"}]},
+       {"key": "second", "name": "Wall drywall: second coat", "phase": 54, "hours_per_unit": 0.007, "setup_hours": 0.25, "wait_days": 1, "wait_for": "dry",
+        "materials": [{"sku": "joint_compound_bucket", "coverage": 1500, "waste": 0}]},
+       {"key": "finish", "name": "Wall drywall: finish coat", "phase": 56, "hours_per_unit": 0.007, "setup_hours": 0.25, "wait_days": 1, "wait_for": "dry",
+        "materials": [{"sku": "joint_compound_bucket", "coverage": 1500, "waste": 0}]},
+       {"key": "sand", "name": "Wall drywall: sand", "phase": 58, "hours_per_unit": 0.004, "setup_hours": 0.25, "materials": []}]},
     {"code": "cement_board", "name": "Cement backer board", "trade": "tile", "phase": 50, "basis": "sf", "hours_per_unit": 0.05, "setup_hours": 0.5,
+     "note": "Backer board screws: coverage assumes a box of 185 screws, 1-1/4 inch. Walls take about 2 screws per sf (8 inches on center into studs at 16 inches), so one box covers about 90 sf. Floors take about 3.7 per sf (8 inches on center both ways), so one box covers about 50 sf. Seams are mesh taped and filled from the tile thinset.",
      "materials": [
        {"sku": "cement_board_3x5", "coverage": 15, "waste": 0.10},
-       {"sku": "backer_screws_box", "coverage": 150, "waste": 0}]},
+       {"sku": "backer_screws_box", "coverage": 90, "waste": 0, "note": "box of 185, about 2 screws per sf on walls"},
+       {"sku": "backer_mesh_tape_roll", "coverage": 250, "waste": 0, "note": "150 ft roll, about 0.55 ft of seam per sf of 3x5 board"}]},
 
     {"code": "shower_waterproof", "name": "Roll on waterproofing membrane", "trade": "tile", "phase": 60, "basis": "sf", "hours_per_unit": 0.03, "setup_hours": 0.5, "wait_days": 1,
      "requires": ["cement_board"],
@@ -86,22 +147,32 @@
        {"sku": "thinset_bag", "coverage": 50, "waste": 0.05},
        {"sku": "grout_bag", "coverage": 100, "waste": 0.05}]},
 
-    {"code": "prime_paint_walls", "name": "Prime and paint walls", "trade": "paint", "phase": 70, "basis": "wall_sf", "hours_per_unit": 0.018, "setup_hours": 1.0,
+    {"code": "paint_ceiling", "name": "Paint ceiling", "trade": "paint", "phase": 70, "basis": "ceiling_sf", "hours_per_unit": 0.02, "setup_hours": 0.5,
+     "materials": [{"sku": "ceiling_paint_gal", "coverage": 350, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
+    {"code": "prime_paint_walls", "name": "Prime and paint walls", "trade": "paint", "phase": 70, "basis": "wall_sf", "hours_per_unit": 0.025, "setup_hours": 1.0,
+     "_rate": "one prime coat and two finish coats, brush and roller, with the cut-in a small room needs",
      "materials": [
        {"sku": "primer_gal", "coverage": 300, "waste": 0.05},
        {"sku": "wall_paint_gal", "coverage": 350, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
-    {"code": "paint_ceiling", "name": "Paint ceiling", "trade": "paint", "phase": 70, "basis": "ceiling_sf", "hours_per_unit": 0.02, "setup_hours": 0.5,
-     "materials": [{"sku": "ceiling_paint_gal", "coverage": 350, "multiplier": 2, "waste": 0.05, "note": "two coats"}]},
+
+    {"code": "floor_backer_board", "name": "Floor tile underlayment, backer board", "trade": "tile", "phase": 75, "basis": "floor_sf", "hours_per_unit": 0.08, "setup_hours": 0.5,
+     "note": ["Floor tile underlayment default: 1/4 inch cement backer board bedded in thinset over a sound wood subfloor, screwed 8 inches on center, seams mesh taped and filled with thinset. It goes down after paint, right before the floor tile. If you use an uncoupling membrane instead, swap this item for your own.",
+              "Backer board screws: coverage assumes a box of 185 screws, 1-1/4 inch. Walls take about 2 screws per sf (8 inches on center into studs at 16 inches), so one box covers about 90 sf. Floors take about 3.7 per sf (8 inches on center both ways), so one box covers about 50 sf. Seams are mesh taped and filled from the tile thinset."],
+     "materials": [
+       {"sku": "cement_board_quarter_3x5", "coverage": 15, "waste": 0.10},
+       {"sku": "thinset_bag", "coverage": 75, "waste": 0.05, "note": "bedding coat with a 1/4 inch notch, plus seam fill"},
+       {"sku": "backer_screws_box", "coverage": 50, "waste": 0, "note": "box of 185, about 3.7 screws per sf on floors"},
+       {"sku": "backer_mesh_tape_roll", "coverage": 250, "waste": 0, "note": "150 ft roll"}]},
+    {"code": "slab_floor_prep", "name": "Prep concrete slab for tile", "trade": "tile", "phase": 75, "basis": "floor_sf", "hours_per_unit": 0.03, "setup_hours": 0.5,
+     "note": "Tile on a concrete slab: no backer board. The slab is scraped clean and low spots and cracks are filled with patching compound before tile is bonded straight to it. Moisture testing and crack isolation membrane are not included.",
+     "materials": [{"sku": "floor_patch_bag", "coverage": 100, "waste": 0}]},
 
     {"code": "tile_floor", "name": "Tile floor", "trade": "tile", "phase": 80, "basis": "floor_sf", "hours_per_unit": 0.16, "setup_hours": 1.0, "wait_days": 1,
+     "requires": [["floor_backer_board", "slab_floor_prep"]],
      "materials": [
        {"sku": "tile_floor_sf", "coverage": 1, "waste": 0.10},
        {"sku": "thinset_bag", "coverage": 50, "waste": 0.05},
        {"sku": "grout_bag", "coverage": 100, "waste": 0.05}]},
-    {"code": "lvp_floor", "name": "Luxury vinyl plank floor", "trade": "flooring", "phase": 80, "basis": "floor_sf", "hours_per_unit": 0.05, "setup_hours": 1.0,
-     "materials": [
-       {"sku": "lvp_carton", "coverage": 23.6, "waste": 0.08},
-       {"sku": "underlayment_roll", "coverage": 100, "waste": 0.05}]},
 
     {"code": "base_cabinets", "name": "Install base cabinets", "trade": "cabinetry", "phase": 90, "basis": "lf", "hours_per_unit": 0.5, "setup_hours": 1.0,
      "materials": [
@@ -111,6 +182,13 @@
      "materials": [{"sku": "cabinet_wall_lf", "coverage": 1, "waste": 0}]},
     {"code": "vanity", "name": "Install vanity with top", "trade": "cabinetry", "phase": 90, "basis": "each", "hours_per_unit": 2.0, "setup_hours": 0,
      "materials": [{"sku": "vanity_36_with_top", "coverage": 1, "waste": 0}]},
+
+    {"code": "lvp_floor", "name": "Luxury vinyl plank floor", "trade": "flooring", "phase": 92, "basis": "floor_sf", "hours_per_unit": 0.05, "setup_hours": 1.0,
+     "note": "Luxury vinyl plank is priced as a floating click floor. It goes in after the base cabinets and runs to the toe kick, never under them, so give a qty with the cabinet footprint taken out.",
+     "materials": [
+       {"sku": "lvp_carton", "coverage": 23.6, "waste": 0.08},
+       {"sku": "underlayment_roll", "coverage": 100, "waste": 0.05}]},
+
     {"code": "countertop", "name": "Template and install countertop", "trade": "cabinetry", "phase": 95, "basis": "sf", "hours_per_unit": 0.15, "setup_hours": 1.5,
      "requires": ["base_cabinets"],
      "materials": [{"sku": "countertop_sf", "coverage": 1, "waste": 0}]},
@@ -137,7 +215,7 @@
     {"code": "appliance_hookup", "name": "Appliance water hookup", "trade": "plumbing", "phase": 110, "basis": "each", "hours_per_unit": 1.0, "setup_hours": 0,
      "materials": [{"sku": "supply_line_kit", "coverage": 1, "waste": 0}]},
 
-    {"code": "baseboard", "name": "Install baseboard", "trade": "trim", "phase": 120, "basis": "perimeter_lf", "hours_per_unit": 0.05, "setup_hours": 0.5,
+    {"code": "baseboard", "name": "Install baseboard", "trade": "trim", "phase": 120, "basis": "baseboard_lf", "hours_per_unit": 0.05, "setup_hours": 0.5,
      "materials": [
        {"sku": "baseboard_8ft", "coverage": 8, "waste": 0.10},
        {"sku": "caulk_tube", "coverage": 50, "waste": 0}]},
@@ -145,6 +223,12 @@
      "materials": [
        {"sku": "prehung_door", "coverage": 1, "waste": 0},
        {"sku": "door_casing_kit", "coverage": 1, "waste": 0}]},
+
+    {"code": "paint_trim", "name": "Fill, caulk and paint baseboard", "trade": "paint", "phase": 125, "basis": "baseboard_lf", "hours_per_unit": 0.04, "setup_hours": 0.5,
+     "note": "Trim arrives primed and is installed after the walls are painted, so it gets its own paint visit: fill nail holes, caulk, two finish coats.",
+     "materials": [{"sku": "trim_paint_qt", "coverage": 150, "waste": 0, "note": "two coats on 3-1/2 inch base, about 150 lf per quart"}]},
+    {"code": "paint_door", "name": "Paint door and casing", "trade": "paint", "phase": 125, "basis": "each", "hours_per_unit": 1.5, "setup_hours": 0,
+     "materials": [{"sku": "trim_paint_qt", "coverage": 1, "waste": 0, "note": "two coats, both faces and the casing, about a quart per door"}]},
 
     {"code": "final_clean", "name": "Final clean and punch list", "trade": "general", "phase": 130, "basis": "floor_sf", "hours_per_unit": 0.01, "setup_hours": 1.0, "materials": []}
   ]

@@ -8,6 +8,10 @@
       "height_ft": 8,
       "doors": 1,
       "windows": 1,
+      "base_deductions": [
+        {"label": "shower alcove", "lf": 10},
+        {"label": "vanity", "lf": 3}
+      ],
       "work_items": [
         {"code": "dumpster"},
         {"code": "demo_floor"},
@@ -19,20 +23,23 @@
         {"code": "device", "qty": 3},
         {"code": "exhaust_fan"},
         {"code": "insulate_walls", "qty": 40},
-        {"code": "drywall_walls", "qty": 110},
-        {"code": "drywall_ceiling"},
-        {"code": "cement_board", "qty": 75},
         {"code": "shower_pan"},
+        {"code": "drywall_ceiling"},
+        {"code": "drywall_walls", "qty": 110},
+        {"code": "cement_board", "qty": 75},
         {"code": "shower_waterproof", "qty": 75},
         {"code": "tile_shower_walls", "qty": 75},
-        {"code": "prime_paint_walls", "qty": 110},
         {"code": "paint_ceiling"},
+        {"code": "prime_paint_walls", "qty": 110},
+        {"code": "floor_backer_board"},
         {"code": "tile_floor"},
         {"code": "vanity"},
         {"code": "set_toilet"},
         {"code": "bath_faucet"},
         {"code": "baseboard"},
         {"code": "interior_door"},
+        {"code": "paint_trim"},
+        {"code": "paint_door"},
         {"code": "final_clean"}
       ]
     }

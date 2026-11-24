@@ -5,20 +5,41 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from .catalog import GEOMETRY_BASES, Catalog, WorkItem
+from .catalog import GEOMETRY_BASES, Catalog, MaterialUse, Stage, WorkItem
 from .models import Room, Scope
 
 
 @dataclass(frozen=True)
 class Task:
-    """One work item in one room, with its measured quantity and labor hours."""
+    """One visit (stage) of a work item in one room, with its quantity and labor hours.
+
+    Most items are a single visit. Staged items (drywall coats, electrical
+    rough-in and trim-out) produce one task per stage from one scope selection.
+    """
 
     room_index: int
     room: Room
     item: WorkItem
+    stage: Stage
     quantity: float
     labor_hours: float
     waste_override: float | None = None
+
+    @property
+    def name(self) -> str:
+        return self.stage.name
+
+    @property
+    def phase(self) -> int:
+        return self.stage.phase
+
+    @property
+    def wait_days(self) -> float:
+        return self.stage.wait_days
+
+    @property
+    def materials(self) -> tuple[MaterialUse, ...]:
+        return self.stage.materials
 
 
 @dataclass(frozen=True)
@@ -46,8 +67,9 @@ def build_tasks(scope: Scope, catalog: Catalog) -> list[Task]:
         for selection in room.selections:
             item = catalog.items[selection.code]
             quantity = task_quantity(room, item, selection.qty)
-            hours = (item.setup_hours + quantity * item.hours_per_unit) * room.labor_factor
-            tasks.append(Task(index, room, item, quantity, round(hours, 2), selection.waste))
+            for stage in item.stages:
+                hours = (stage.setup_hours + quantity * stage.hours_per_unit) * room.labor_factor
+                tasks.append(Task(index, room, item, stage, quantity, round(hours, 2), selection.waste))
     return tasks
 
 
@@ -67,7 +89,7 @@ def material_takeoff(tasks: list[Task], trade_order: list[str] | None = None) ->
     net: dict[tuple[str, str], float] = {}
     raw: dict[tuple[str, str], float] = {}
     for task in tasks:
-        for use in task.item.materials:
+        for use in task.materials:
             waste = use.waste if task.waste_override is None else task.waste_override
             base = task.quantity * use.multiplier / use.coverage
             key = (task.item.trade, use.sku)

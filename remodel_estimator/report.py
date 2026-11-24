@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import textwrap
 from typing import Any
 
 WIDTH = 96
@@ -29,6 +30,7 @@ def render_text(est: dict[str, Any]) -> str:
         out.append(
             f"  {room['name']:<16} {room['length_ft']:g} x {room['width_ft']:g} x {room['height_ft']:g} ft"
             f"   floor {room['floor_sf']:g} sf   walls {room['wall_sf']:g} sf   perimeter {room['perimeter_lf']:g} lf"
+            f"   baseboard {room['baseboard_lf']:g} lf"
         )
 
     out += ["", "SCOPE LINE ITEMS"]
@@ -65,7 +67,7 @@ def render_text(est: dict[str, Any]) -> str:
                  "start and end are working days elapsed since the job started)"]
     out.append(f"  {'start':>6} {'end':>6}  {'room':<12} {'work item':<38} {'trade':<11} {'note'}")
     for step in schedule["steps"]:
-        note = f"then wait {step['wait_days']:g} day to cure" if step["wait_days"] else ""
+        note = f"then wait {step['wait_days']:g} day to {step['wait_for']}" if step["wait_days"] else ""
         out.append(
             f"  {_day(step['start_day']):>6} {_day(step['end_day']):>6}  {step['room'][:12]:<12} "
             f"{step['name'][:38]:<38} {step['trade']:<11} {note}".rstrip()
@@ -90,5 +92,9 @@ def render_text(est: dict[str, Any]) -> str:
     if est["warnings"]:
         out += ["", "NOTES"]
         out += [f"  * {warning}" for warning in est["warnings"]]
+    if est["assumptions"]:
+        out += ["", "ASSUMPTIONS (catalog defaults used in this estimate; check them against how you build)"]
+        for note in est["assumptions"]:
+            out += textwrap.wrap(note, WIDTH, initial_indent="  * ", subsequent_indent="    ")
     out.append("")
     return "\n".join(out)

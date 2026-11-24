@@ -8,6 +8,12 @@
       "height_ft": 8,
       "doors": 2,
       "windows": 1,
+      "base_deductions": [
+        {"label": "base cabinets", "lf": 14},
+        {"label": "dishwasher", "lf": 2},
+        {"label": "range", "lf": 2.5},
+        {"label": "refrigerator", "lf": 3}
+      ],
       "work_items": [
         {"code": "dumpster"},
         {"code": "demo_floor"},
@@ -18,16 +24,17 @@
         {"code": "device", "qty": 8},
         {"code": "recessed_light", "qty": 6},
         {"code": "drywall_walls", "qty": 120},
-        {"code": "prime_paint_walls"},
         {"code": "paint_ceiling"},
-        {"code": "lvp_floor"},
+        {"code": "prime_paint_walls", "qty": 260},
         {"code": "base_cabinets", "qty": 14},
         {"code": "wall_cabinets", "qty": 12},
+        {"code": "lvp_floor", "qty": 140},
         {"code": "countertop", "qty": 34},
         {"code": "backsplash_tile", "qty": 30},
         {"code": "kitchen_sink_faucet"},
         {"code": "appliance_hookup", "qty": 2},
-        {"code": "baseboard", "qty": 20},
+        {"code": "baseboard"},
+        {"code": "paint_trim"},
         {"code": "final_clean"}
       ]
     }

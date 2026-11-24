@@ -59,7 +59,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 
 .room { border: 1px solid var(--line); border-radius: 6px; padding: 12px; margin-bottom: 12px; }
 .room-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-weight: 600; }
-.dims { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 8px 0 10px; }
+.dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0 10px; }
 .items { max-height: 320px; overflow-y: auto; border-top: 1px solid var(--line); padding-top: 6px; }
 .phase { margin: 8px 0 2px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
 .item { display: grid; grid-template-columns: 1fr 78px 26px; gap: 6px; align-items: center; padding: 2px 0; }
