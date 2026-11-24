@@ -83,9 +83,12 @@ def test_same_sku_from_two_items_in_one_trade_is_merged(catalog):
 
 def test_labor_hours_include_setup_and_room_factor(catalog):
     plain = build_tasks(parse_scope(one_room([{"code": "tile_floor"}]), catalog), catalog)
-    assert plain[0].labor_hours == pytest.approx(1.0 + 40 * 0.16)
+    assert [task.stage.key for task in plain] == ["set", "grout"]
+    assert plain[0].labor_hours == pytest.approx(1.0 + 40 * 0.13)  # setup is on the setting visit
+    assert plain[1].labor_hours == pytest.approx(40 * 0.03)
+    assert sum(task.labor_hours for task in plain) == pytest.approx(1.0 + 40 * 0.16)
     hard = build_tasks(parse_scope(one_room([{"code": "tile_floor"}], labor_factor=1.5), catalog), catalog)
-    assert hard[0].labor_hours == pytest.approx(7.4 * 1.5)
+    assert sum(task.labor_hours for task in hard) == pytest.approx(7.4 * 1.5)
 
 
 def test_trade_minimum_hours_are_billed(catalog, price_book):
@@ -145,8 +148,10 @@ def test_working_days_cover_the_last_step_and_cure(catalog, price_book):
     scope = parse_scope(one_room([{"code": "tile_floor"}]), catalog)
     est = estimate(one_room([{"code": "tile_floor"}]), catalog, price_book)
     steps = build_schedule(build_tasks(scope, catalog), catalog, price_book)
-    assert steps[0].end_day == 1.0  # 7.4 hours, crew of one
-    assert est["schedule"]["working_days"] == 2  # one day of work plus one day of cure
+    assert steps[0].end_day == 1.0  # setting: 6.2 hours, crew of one
+    assert steps[1].start_day == 2.0  # grout waits a day for the mortar
+    assert steps[1].end_day == 2.5
+    assert est["schedule"]["working_days"] == 4  # set, cure day, grout, and the grout's own day
 
 
 def test_missing_prerequisite_becomes_a_warning(catalog, price_book):

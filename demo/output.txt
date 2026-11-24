@@ -37,11 +37,13 @@ SCOPE LINE ITEMS
   Hall bath    Wall drywall: sand                     drywall          110 sf      0.69
   Hall bath    Cement backer board                    tile              75 sf      4.25
   Hall bath    Roll on waterproofing membrane         tile              75 sf      2.75
-  Hall bath    Tile shower walls                      tile              75 sf     17.50
+  Hall bath    Tile shower walls: set tile            tile              75 sf     14.50
+  Hall bath    Tile shower walls: grout               tile              75 sf      3.00
   Hall bath    Paint ceiling                          paint             40 sf      1.30
   Hall bath    Prime and paint walls                  paint            110 sf      3.75
   Hall bath    Floor tile underlayment, backer board  tile              40 sf      3.70
-  Hall bath    Tile floor                             tile              40 sf      7.40
+  Hall bath    Tile floor: set tile                   tile              40 sf      6.20
+  Hall bath    Tile floor: grout                      tile              40 sf      1.20
   Hall bath    Install vanity with top                cabinetry          1 ea      2.00
   Hall bath    Set toilet                             plumbing           1 ea      1.50
   Hall bath    Install bath faucet and drain          plumbing           1 ea      1.25
@@ -77,9 +79,9 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     R13 batt insulation bundle, 88 sf (sample)              0.46   5.0%     1 bundle     $68.00      $68.00
   [drywall]
     material                                                 net  waste   buy unit         each    extended
-    Drywall screws 1-1/4 in, 5 lb box (sample)              0.18   0.0%     1 box        $29.00      $29.00
+    Drywall screws 1-1/4 in, 5 lb box (sample)              0.15   0.0%     1 box        $29.00      $29.00
     Drywall sheet 4x8, half inch (sample)                   4.69  12.0%     6 sheet      $15.50      $93.00
-    Drywall paper tape, 250 ft roll (sample)                0.25   0.0%     1 roll        $6.00       $6.00
+    Drywall paper tape, 250 ft roll (sample)                0.22   0.0%     1 roll        $6.00       $6.00
     All purpose joint compound, 4.5 gal (sample)            0.33   0.0%     1 bucket     $21.00      $21.00
   [tile]
     material                                                 net  waste   buy unit         each    extended
@@ -121,7 +123,7 @@ LABOR BY TRADE
   trim             3.00      3.00    $70.00      $210.00
   general          1.40      2.00    $50.00      $100.00  (trade minimum applied)
 
-SEQUENCE (17 working days, one crew per trade; start and end are working days elapsed since the job started)
+SEQUENCE (19 working days, one crew per trade; start and end are working days elapsed since the job started)
    start    end  room         work item                              trade       note
        0   0.04  Hall bath    Dumpster delivery and haul away        demolition
     0.04   0.25  Hall bath    Remove existing flooring               demolition
@@ -141,27 +143,29 @@ SEQUENCE (17 working days, one crew per trade; start and end are working days el
        5    5.5  Hall bath    Roll on waterproofing membrane         tile        then wait 1 day to cure
     5.16    5.5  Hall bath    Wall drywall: tape coat                drywall     then wait 1 day to dry
      6.5   6.63  Hall bath    Ceiling drywall: second coat           drywall     then wait 1 day to dry
-     6.5      9  Hall bath    Tile shower walls                      tile        then wait 1 day to cure
+     6.5    8.5  Hall bath    Tile shower walls: set tile            tile        then wait 1 day to cure
     6.63      7  Hall bath    Wall drywall: second coat              drywall     then wait 1 day to dry
        8   8.13  Hall bath    Ceiling drywall: finish coat           drywall     then wait 1 day to dry
     8.13    8.5  Hall bath    Wall drywall: finish coat              drywall     then wait 1 day to dry
      9.5   9.64  Hall bath    Ceiling drywall: sand                  drywall
+     9.5     10  Hall bath    Tile shower walls: grout               tile        then wait 1 day to cure
     9.64     10  Hall bath    Wall drywall: sand                     drywall
-      10  10.26  Hall bath    Paint ceiling                          paint
-   10.26     11  Hall bath    Prime and paint walls                  paint
-      11   11.5  Hall bath    Floor tile underlayment, backer board  tile
-    11.5   12.5  Hall bath    Tile floor                             tile        then wait 1 day to cure
-    13.5     14  Hall bath    Install vanity with top                cabinetry
-      14  14.11  Hall bath    Shower valve: trim and shower head     plumbing
-   14.11  14.32  Hall bath    Set toilet                             plumbing
-   14.32   14.5  Hall bath    Install bath faucet and drain          plumbing
-    14.5  14.87  Hall bath    Outlet or switch: device and plate     electrical
-   14.87     15  Hall bath    Bath fan: grille and test              electrical
-      15  15.17  Hall bath    Install baseboard                      trim
-   15.17   15.5  Hall bath    Hang prehung interior door             trim
-    15.5  15.69  Hall bath    Fill, caulk and paint baseboard        paint
-   15.69     16  Hall bath    Paint door and casing                  paint
-      16   16.5  Hall bath    Final clean and punch list             general
+      11  11.26  Hall bath    Paint ceiling                          paint
+   11.26     12  Hall bath    Prime and paint walls                  paint
+      12   12.5  Hall bath    Floor tile underlayment, backer board  tile
+    12.5   13.5  Hall bath    Tile floor: set tile                   tile        then wait 1 day to cure
+    14.5     15  Hall bath    Tile floor: grout                      tile        then wait 1 day to cure
+      16   16.5  Hall bath    Install vanity with top                cabinetry
+    16.5  16.61  Hall bath    Shower valve: trim and shower head     plumbing
+   16.61  16.82  Hall bath    Set toilet                             plumbing
+   16.82     17  Hall bath    Install bath faucet and drain          plumbing
+      17  17.37  Hall bath    Outlet or switch: device and plate     electrical
+   17.37   17.5  Hall bath    Bath fan: grille and test              electrical
+    17.5  17.67  Hall bath    Install baseboard                      trim
+   17.67     18  Hall bath    Hang prehung interior door             trim
+      18  18.19  Hall bath    Fill, caulk and paint baseboard        paint
+   18.19   18.5  Hall bath    Paint door and casing                  paint
+    18.5     19  Hall bath    Final clean and punch list             general
 
 DIRECT COST BY TRADE (before tax and markups)
   trade           materials        labor        total
@@ -197,19 +201,47 @@ ASSUMPTIONS (catalog defaults used in this estimate; check them against how you 
     the trim and shower head after the tile is grouted.
   * Electrical is two visits: rough-in (boxes, cable, fan housing and duct) before insulation
     and drywall, then trim-out (devices, plates, light fixtures, fan grille) after paint and
-    tile. About two thirds of the device labor is rough-in. The trim-out visit carries its own
-    half hour of setup.
-  * Drywall is five visits: hang, tape coat, second coat, finish coat, sand, with one dry day
-    after each coat (all purpose premixed compound at normal room conditions). Ceilings are hung
-    before walls. Compound is one 4.5 gallon bucket per 450 sf across the three coats.
-  * Backer board screws: coverage assumes a box of 185 screws, 1-1/4 inch. Walls take about 2
-    screws per sf (8 inches on center into studs at 16 inches), so one box covers about 90 sf.
-    Floors take about 3.7 per sf (8 inches on center both ways), so one box covers about 50 sf.
-    Seams are mesh taped and filled from the tile thinset.
+    tile. About two thirds of the device labor is rough-in, which is a judgment and not a
+    published labor unit. The trim-out visit carries its own half hour of setup.
+  * The shower pan is set against the bare studs before any board goes up. The backer board then
+    stops just above the pan's tile flange, as pan makers' instructions show.
+  * Drywall is five visits: hang, tape coat, second coat, finish coat, sand. Tape plus two more
+    coats on the flat joints is the Level 4 finish in the gypsum industry's levels of finish.
+    Ceilings are hung before walls. Screws are 12 inches on center on ceilings and 16 on walls.
+  * Drywall dry time: one dry day after each coat of premixed all purpose compound. That holds
+    at about 60 to 70 F and 50 percent humidity with ventilation. The gypsum industry drying
+    table gives about 17 hours at 70 F and 50 percent humidity, 24 hours at 60 F, 26 hours at 70
+    F and 70 percent, and 38 hours at 60 F and 70 percent, so allow two days a coat in a cool
+    damp basement and keep the room at 50 F or warmer. Setting compound would shorten the wait.
+  * Drywall materials per 1,000 sf of board: 10 gallons of premixed compound (one 4.5 gallon
+    bucket per 450 sf across the three coats; published figures run 9 to 11 gallons), 370 ft of
+    paper tape, 1,250 screws (one 5 lb box of 1-1/4 inch screws).
+  * Backer board screws: coverage assumes a box of 185 screws, 1-1/4 inch, at the 8 inch spacing
+    board makers call for. Walls take about 2 screws per sf (8 inches on center into studs at 16
+    inches), so one box covers about 90 sf. Floors take about 3.7 per sf (8 inches on center
+    both ways, edges included), so one box covers about 50 sf. The spacing is the makers'; the
+    screws per sf are worked out from it and sit at the high end. Seams are mesh taped and
+    filled from the tile thinset.
+  * Roll on membrane: two coats over the taped cement board at about 50 sf per gallon for the
+    finished membrane. Product data sheets give 40 to 55 sf per gallon and say rough board takes
+    more. A coat dries in an hour or so at 70 F. The cure day before tile is the long end of
+    what the data sheets ask before a flood test: 2 hours for one product at 70 F, 12 to 24
+    hours for another, a full day below 70 F.
+  * Tile is two visits: set, then grout after the mortar has cured for a day. Grout makers ask
+    for 24 to 48 hours of mortar cure before grouting unless the mortar is rapid setting, and
+    for 16 to 24 hours on the grout before it is walked on or disturbed, so a second day follows
+    the grout. How the hours divide between setting and grouting is a judgment. Tile waste is 10
+    percent for a straight layout on a floor or backsplash and 12 percent on shower walls; use
+    the waste override for a diagonal or herringbone layout (15 percent or more).
+  * Paint on new drywall: one coat of drywall primer at 300 sf per gallon, then two finish coats
+    at 350 sf per gallon. Paint and primer data sheets give 300 to 400 sf per gallon and the
+    same one primer coat and two finish coats.
   * Floor tile underlayment default: 1/4 inch cement backer board bedded in thinset over a sound
-    wood subfloor, screwed 8 inches on center, seams mesh taped and filled with thinset. It goes
-    down after paint, right before the floor tile. If you use an uncoupling membrane instead,
-    swap this item for your own.
+    wood subfloor, screwed 8 inches on center, seams mesh taped and filled with thinset. The
+    thinset bed, the 1/4 inch square notch trowel and the 8 inch screw spacing are the board
+    makers' instructions. The board goes down after paint, right before the floor tile: that
+    order is a judgment, since the makers' instructions do not set one. If you use an uncoupling
+    membrane instead, swap this item for your own.
   * Trim arrives primed and is installed after the walls are painted, so it gets its own paint
     visit: fill nail holes, caulk, two finish coats.
   * Hall bath: baseboard is 10 lf: the 26 lf perimeter less 3 lf for 1 door opening at 3 lf
@@ -246,7 +278,8 @@ SCOPE LINE ITEMS
   Kitchen      Install wall cabinets                  cabinetry         12 lf      5.90
   Kitchen      Luxury vinyl plank floor               flooring         140 sf      8.00
   Kitchen      Template and install countertop        cabinetry         34 sf      6.60
-  Kitchen      Tile backsplash                        tile              30 sf      7.00
+  Kitchen      Tile backsplash: set tile              tile              30 sf      5.80
+  Kitchen      Tile backsplash: grout                 tile              30 sf      1.20
   Kitchen      Install kitchen sink and faucet        plumbing           1 ea      2.50
   Kitchen      Appliance water hookup                 plumbing           2 ea      2.00
   Kitchen      Install baseboard                      trim            24.5 lf      1.73
@@ -272,9 +305,9 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     LED wafer light (sample)                                6.00   0.0%     6 ea         $24.00     $144.00
   [drywall]
     material                                                 net  waste   buy unit         each    extended
-    Drywall screws 1-1/4 in, 5 lb box (sample)              0.13   0.0%     1 box        $29.00      $29.00
+    Drywall screws 1-1/4 in, 5 lb box (sample)              0.12   0.0%     1 box        $29.00      $29.00
     Drywall sheet 4x8, half inch (sample)                   3.75  12.0%     5 sheet      $15.50      $77.50
-    Drywall paper tape, 250 ft roll (sample)                0.20   0.0%     1 roll        $6.00       $6.00
+    Drywall paper tape, 250 ft roll (sample)                0.18   0.0%     1 roll        $6.00       $6.00
     All purpose joint compound, 4.5 gal (sample)            0.27   0.0%     1 bucket     $21.00      $21.00
   [tile]
     material                                                 net  waste   buy unit         each    extended
@@ -295,7 +328,7 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     Fabricated countertop, per square foot (sample)        34.00   0.0%    34 sf         $68.00   $2,312.00
   [flooring]
     material                                                 net  waste   buy unit         each    extended
-    Luxury vinyl plank carton, 23.6 sf (sample)             5.93   8.0%     7 carton     $82.00     $574.00
+    Luxury vinyl plank carton, 23.6 sf (sample)             5.93  10.0%     7 carton     $82.00     $574.00
     Underlayment roll, 100 sf (sample)                      1.40   5.0%     2 roll       $39.00      $78.00
   [trim]
     material                                                 net  waste   buy unit         each    extended
@@ -315,7 +348,7 @@ LABOR BY TRADE
   trim             1.73      2.00    $70.00      $140.00  (trade minimum applied)
   general          2.68      2.68    $50.00      $134.00
 
-SEQUENCE (18 working days, one crew per trade; start and end are working days elapsed since the job started)
+SEQUENCE (20 working days, one crew per trade; start and end are working days elapsed since the job started)
    start    end  room         work item                              trade       note
        0   0.04  Kitchen      Dumpster delivery and haul away        demolition
     0.04   0.96  Kitchen      Remove existing flooring               demolition
@@ -336,14 +369,15 @@ SEQUENCE (18 working days, one crew per trade; start and end are working days el
    11.08   11.5  Kitchen      Install wall cabinets                  cabinetry
     11.5     12  Kitchen      Luxury vinyl plank floor               flooring
       12   12.5  Kitchen      Template and install countertop        cabinetry
-    12.5   13.5  Kitchen      Tile backsplash                        tile        then wait 1 day to cure
-    14.5  15.06  Kitchen      Install kitchen sink and faucet        plumbing
-   15.06   15.5  Kitchen      Appliance water hookup                 plumbing
-    15.5  16.12  Kitchen      Outlet or switch: device and plate     electrical
-   16.12   16.5  Kitchen      Recessed light: install fixture        electrical
-    16.5     17  Kitchen      Install baseboard                      trim
-      17   17.5  Kitchen      Fill, caulk and paint baseboard        paint
-    17.5     18  Kitchen      Final clean and punch list             general
+    12.5   13.5  Kitchen      Tile backsplash: set tile              tile        then wait 1 day to cure
+    14.5     15  Kitchen      Tile backsplash: grout                 tile        then wait 1 day to cure
+      16  16.56  Kitchen      Install kitchen sink and faucet        plumbing
+   16.56     17  Kitchen      Appliance water hookup                 plumbing
+      17  17.62  Kitchen      Outlet or switch: device and plate     electrical
+   17.62     18  Kitchen      Recessed light: install fixture        electrical
+      18   18.5  Kitchen      Install baseboard                      trim
+    18.5     19  Kitchen      Fill, caulk and paint baseboard        paint
+      19   19.5  Kitchen      Final clean and punch list             general
 
 DIRECT COST BY TRADE (before tax and markups)
   trade           materials        labor        total
@@ -376,14 +410,32 @@ NOTES
 ASSUMPTIONS (catalog defaults used in this estimate; check them against how you build)
   * Electrical is two visits: rough-in (boxes, cable, fan housing and duct) before insulation
     and drywall, then trim-out (devices, plates, light fixtures, fan grille) after paint and
-    tile. About two thirds of the device labor is rough-in. The trim-out visit carries its own
-    half hour of setup.
-  * Drywall is five visits: hang, tape coat, second coat, finish coat, sand, with one dry day
-    after each coat (all purpose premixed compound at normal room conditions). Ceilings are hung
-    before walls. Compound is one 4.5 gallon bucket per 450 sf across the three coats.
+    tile. About two thirds of the device labor is rough-in, which is a judgment and not a
+    published labor unit. The trim-out visit carries its own half hour of setup.
+  * Drywall is five visits: hang, tape coat, second coat, finish coat, sand. Tape plus two more
+    coats on the flat joints is the Level 4 finish in the gypsum industry's levels of finish.
+    Ceilings are hung before walls. Screws are 12 inches on center on ceilings and 16 on walls.
+  * Drywall dry time: one dry day after each coat of premixed all purpose compound. That holds
+    at about 60 to 70 F and 50 percent humidity with ventilation. The gypsum industry drying
+    table gives about 17 hours at 70 F and 50 percent humidity, 24 hours at 60 F, 26 hours at 70
+    F and 70 percent, and 38 hours at 60 F and 70 percent, so allow two days a coat in a cool
+    damp basement and keep the room at 50 F or warmer. Setting compound would shorten the wait.
+  * Drywall materials per 1,000 sf of board: 10 gallons of premixed compound (one 4.5 gallon
+    bucket per 450 sf across the three coats; published figures run 9 to 11 gallons), 370 ft of
+    paper tape, 1,250 screws (one 5 lb box of 1-1/4 inch screws).
+  * Paint on new drywall: one coat of drywall primer at 300 sf per gallon, then two finish coats
+    at 350 sf per gallon. Paint and primer data sheets give 300 to 400 sf per gallon and the
+    same one primer coat and two finish coats.
   * Luxury vinyl plank is priced as a floating click floor. It goes in after the base cabinets
-    and runs to the toe kick, never under them, so give a qty with the cabinet footprint taken
-    out.
+    and runs to the toe kick, never under them, as plank makers' instructions require, so give a
+    qty with the cabinet footprint taken out. Waste is 10 percent, the makers' figure for cuts
+    on a straight layout; allow more for a diagonal one.
+  * Tile is two visits: set, then grout after the mortar has cured for a day. Grout makers ask
+    for 24 to 48 hours of mortar cure before grouting unless the mortar is rapid setting, and
+    for 16 to 24 hours on the grout before it is walked on or disturbed, so a second day follows
+    the grout. How the hours divide between setting and grouting is a judgment. Tile waste is 10
+    percent for a straight layout on a floor or backsplash and 12 percent on shower walls; use
+    the waste override for a diagonal or herringbone layout (15 percent or more).
   * Trim arrives primed and is installed after the walls are painted, so it gets its own paint
     visit: fill nail holes, caulk, two finish coats.
   * Kitchen: baseboard is 24.5 lf: the 52 lf perimeter less 6 lf for 2 door openings at 3 lf
@@ -447,7 +499,8 @@ SCOPE LINE ITEMS
   Half bath    Paint ceiling                          paint             30 sf      1.21
   Half bath    Prime and paint walls                  paint            145 sf      5.09
   Half bath    Prep concrete slab for tile            tile              30 sf      1.54
-  Half bath    Tile floor                             tile              30 sf      6.38
+  Half bath    Tile floor: set tile                   tile              30 sf      5.39
+  Half bath    Tile floor: grout                      tile              30 sf      0.99
   Half bath    Install vanity with top                cabinetry          1 ea      2.20
   Half bath    Set toilet                             plumbing           1 ea      1.65
   Half bath    Install bath faucet and drain          plumbing           1 ea      1.38
@@ -490,9 +543,9 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     R13 batt insulation bundle, 88 sf (sample)              6.09   5.0%     7 bundle     $68.00     $476.00
   [drywall]
     material                                                 net  waste   buy unit         each    extended
-    Drywall screws 1-1/4 in, 5 lb box (sample)              1.31   0.0%     2 box        $29.00      $58.00
+    Drywall screws 1-1/4 in, 5 lb box (sample)              1.09   0.0%     2 box        $29.00      $58.00
     Drywall sheet 4x8, half inch (sample)                  34.22  12.0%    39 sheet      $15.50     $604.50
-    Drywall paper tape, 250 ft roll (sample)                1.82   0.0%     2 roll        $6.00      $12.00
+    Drywall paper tape, 250 ft roll (sample)                1.62   0.0%     2 roll        $6.00      $12.00
     All purpose joint compound, 4.5 gal (sample)            2.43   0.0%     3 bucket     $21.00      $63.00
   [tile]
     material                                                 net  waste   buy unit         each    extended
@@ -511,7 +564,7 @@ MATERIAL TAKEOFF BY TRADE (waste included, rounded up to whole purchase units)
     36 inch vanity with top (sample)                        1.00   0.0%     1 ea        $640.00     $640.00
   [flooring]
     material                                                 net  waste   buy unit         each    extended
-    Luxury vinyl plank carton, 23.6 sf (sample)            16.27   8.0%    18 carton     $82.00   $1,476.00
+    Luxury vinyl plank carton, 23.6 sf (sample)            16.27  10.0%    18 carton     $82.00   $1,476.00
     Underlayment roll, 100 sf (sample)                      3.84   5.0%     5 roll       $39.00     $195.00
   [trim]
     material                                                 net  waste   buy unit         each    extended
@@ -535,7 +588,7 @@ LABOR BY TRADE
   trim            10.45     10.45    $70.00      $731.50
   general          6.75      6.75    $50.00      $337.50
 
-SEQUENCE (25 working days, one crew per trade; start and end are working days elapsed since the job started)
+SEQUENCE (27 working days, one crew per trade; start and end are working days elapsed since the job started)
    start    end  room         work item                              trade       note
        0    0.5  Rec room     Dumpster delivery and haul away        demolition
      0.5   2.15  Rec room     Frame walls on concrete slab           carpentry
@@ -575,24 +628,25 @@ SEQUENCE (25 working days, one crew per trade; start and end are working days el
     18.5     20  Rec room     Luxury vinyl plank floor               flooring
    18.69   19.5  Half bath    Prime and paint walls                  paint
     19.5     20  Half bath    Prep concrete slab for tile            tile
-      20     21  Half bath    Tile floor                             tile        then wait 1 day to cure
+      20     21  Half bath    Tile floor: set tile                   tile        then wait 1 day to cure
       20  20.54  Rec room     Outlet or switch: device and plate     electrical
    20.54     21  Rec room     Recessed light: install fixture        electrical
       21  21.68  Rec room     Install baseboard                      trim
    21.68     22  Rec room     Hang prehung interior door             trim
-      22   22.5  Half bath    Install vanity with top                cabinetry
+      22   22.5  Half bath    Tile floor: grout                      tile        then wait 1 day to cure
       22   22.7  Rec room     Fill, caulk and paint baseboard        paint
-    22.5  22.77  Half bath    Set toilet                             plumbing
     22.7     23  Rec room     Paint door and casing                  paint
-   22.77     23  Half bath    Install bath faucet and drain          plumbing
-      23  23.34  Half bath    Outlet or switch: device and plate     electrical
       23     24  Rec room     Final clean and punch list             general
-   23.34   23.5  Half bath    Bath fan: grille and test              electrical
-    23.5   23.7  Half bath    Install baseboard                      trim
-    23.7     24  Half bath    Hang prehung interior door             trim
-      24  24.22  Half bath    Fill, caulk and paint baseboard        paint
-   24.22   24.5  Half bath    Paint door and casing                  paint
-    24.5     25  Half bath    Final clean and punch list             general
+    23.5     24  Half bath    Install vanity with top                cabinetry
+      24  24.27  Half bath    Set toilet                             plumbing
+   24.27   24.5  Half bath    Install bath faucet and drain          plumbing
+    24.5  24.84  Half bath    Outlet or switch: device and plate     electrical
+   24.84     25  Half bath    Bath fan: grille and test              electrical
+      25   25.2  Half bath    Install baseboard                      trim
+    25.2   25.5  Half bath    Hang prehung interior door             trim
+    25.5  25.72  Half bath    Fill, caulk and paint baseboard        paint
+   25.72     26  Half bath    Paint door and casing                  paint
+      26   26.5  Half bath    Final clean and punch list             general
 
 DIRECT COST BY TRADE (before tax and markups)
   trade           materials        labor        total
@@ -626,20 +680,42 @@ NOTES
 
 ASSUMPTIONS (catalog defaults used in this estimate; check them against how you build)
   * Walls on a slab: pressure treated bottom plate over sill sealer, pinned with concrete
-    fasteners about every 32 inches, then untreated studs and a double top plate.
+    fasteners about every 32 inches and 6 inches from each plate end, then untreated studs and a
+    double top plate. The residential code calls for treated wood where a plate sits on a slab
+    in contact with the ground, unless a moisture barrier separates them. Evaluation reports for
+    powder driven pins allow up to 3 or 4 ft between pins on interior non bearing walls. The
+    sill sealer and the double top plate are judgment calls.
   * Electrical is two visits: rough-in (boxes, cable, fan housing and duct) before insulation
     and drywall, then trim-out (devices, plates, light fixtures, fan grille) after paint and
-    tile. About two thirds of the device labor is rough-in. The trim-out visit carries its own
-    half hour of setup.
-  * Drywall is five visits: hang, tape coat, second coat, finish coat, sand, with one dry day
-    after each coat (all purpose premixed compound at normal room conditions). Ceilings are hung
-    before walls. Compound is one 4.5 gallon bucket per 450 sf across the three coats.
+    tile. About two thirds of the device labor is rough-in, which is a judgment and not a
+    published labor unit. The trim-out visit carries its own half hour of setup.
+  * Drywall is five visits: hang, tape coat, second coat, finish coat, sand. Tape plus two more
+    coats on the flat joints is the Level 4 finish in the gypsum industry's levels of finish.
+    Ceilings are hung before walls. Screws are 12 inches on center on ceilings and 16 on walls.
+  * Drywall dry time: one dry day after each coat of premixed all purpose compound. That holds
+    at about 60 to 70 F and 50 percent humidity with ventilation. The gypsum industry drying
+    table gives about 17 hours at 70 F and 50 percent humidity, 24 hours at 60 F, 26 hours at 70
+    F and 70 percent, and 38 hours at 60 F and 70 percent, so allow two days a coat in a cool
+    damp basement and keep the room at 50 F or warmer. Setting compound would shorten the wait.
+  * Drywall materials per 1,000 sf of board: 10 gallons of premixed compound (one 4.5 gallon
+    bucket per 450 sf across the three coats; published figures run 9 to 11 gallons), 370 ft of
+    paper tape, 1,250 screws (one 5 lb box of 1-1/4 inch screws).
+  * Paint on new drywall: one coat of drywall primer at 300 sf per gallon, then two finish coats
+    at 350 sf per gallon. Paint and primer data sheets give 300 to 400 sf per gallon and the
+    same one primer coat and two finish coats.
   * Tile on a concrete slab: no backer board. The slab is scraped clean and low spots and cracks
     are filled with patching compound before tile is bonded straight to it. Moisture testing and
     crack isolation membrane are not included.
+  * Tile is two visits: set, then grout after the mortar has cured for a day. Grout makers ask
+    for 24 to 48 hours of mortar cure before grouting unless the mortar is rapid setting, and
+    for 16 to 24 hours on the grout before it is walked on or disturbed, so a second day follows
+    the grout. How the hours divide between setting and grouting is a judgment. Tile waste is 10
+    percent for a straight layout on a floor or backsplash and 12 percent on shower walls; use
+    the waste override for a diagonal or herringbone layout (15 percent or more).
   * Luxury vinyl plank is priced as a floating click floor. It goes in after the base cabinets
-    and runs to the toe kick, never under them, so give a qty with the cabinet footprint taken
-    out.
+    and runs to the toe kick, never under them, as plank makers' instructions require, so give a
+    qty with the cabinet footprint taken out. Waste is 10 percent, the makers' figure for cuts
+    on a straight layout; allow more for a diagonal one.
   * Trim arrives primed and is installed after the walls are painted, so it gets its own paint
     visit: fill nail holes, caulk, two finish coats.
   * Rec room: baseboard is 74 lf: the 80 lf perimeter less 6 lf for 2 door openings at 3 lf
@@ -648,14 +724,14 @@ ASSUMPTIONS (catalog defaults used in this estimate; check them against how you 
     each, 3 lf for vanity.
 
 SUMMARY (sample prices)
-  Sample hall bathroom remodel      17 working days   $   16,828.88
-  Sample kitchen remodel            18 working days   $   23,825.87
-  Sample basement finish            25 working days   $   34,735.92
+  Sample hall bathroom remodel      19 working days   $   16,828.88
+  Sample kitchen remodel            20 working days   $   23,825.87
+  Sample basement finish            27 working days   $   34,735.92
 
 API ROUND TRIP (local server on a free port, same engine as the CLI)
   POST /api/estimate -> HTTP 200
   project        Sample hall bathroom remodel
   price book     Sample price book (sample: True)
   takeoff lines  37
-  working days   17
+  working days   19
   total          $16,828.88 (sample prices)

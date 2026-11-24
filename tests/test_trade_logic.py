@@ -67,7 +67,7 @@ def test_bathroom_floor_underlayment_goes_after_paint_and_before_floor_tile(exam
     steps = stage_steps(est)
     board = steps[("floor_backer_board", "main")]
     assert steps[("prime_paint_walls", "main")]["end_day"] <= board["start_day"]
-    assert board["end_day"] <= steps[("tile_floor", "main")]["start_day"]
+    assert board["end_day"] <= steps[("tile_floor", "set")]["start_day"]
     assert not any("Tile floor" in w for w in est["warnings"])
     assert any("1/4 inch cement backer board" in a for a in est["assumptions"])
 
@@ -92,7 +92,7 @@ def test_electrical_is_split_into_rough_and_finish_visits(example):
         assert rough["end_day"] <= steps[("insulate_walls", "main")]["start_day"]
         assert rough["end_day"] <= steps[("drywall_walls", "hang")]["start_day"]
         assert finish["start_day"] >= steps[("prime_paint_walls", "main")]["end_day"]
-        assert finish["start_day"] >= steps[("tile_shower_walls", "main")]["end_day"] + 1
+        assert finish["start_day"] >= steps[("tile_shower_walls", "grout")]["end_day"] + 1
         assert hours[(code, "rough")] > hours[(code, "finish")] > 0
     # 3 devices: 0.6 hours each at rough-in, 0.3 each at trim-out plus half an hour of setup
     assert hours[("device", "rough")] == pytest.approx(1.8)
@@ -103,7 +103,7 @@ def test_recessed_lights_are_cabled_at_rough_and_installed_at_finish(example):
     est = estimate(example("kitchen"))
     steps = stage_steps(est)
     assert steps[("recessed_light", "rough")]["end_day"] <= steps[("drywall_walls", "hang")]["start_day"]
-    assert steps[("recessed_light", "finish")]["start_day"] >= steps[("backsplash_tile", "main")]["end_day"]
+    assert steps[("recessed_light", "finish")]["start_day"] >= steps[("backsplash_tile", "grout")]["end_day"] + 1
 
 
 def test_staged_item_materials_are_bought_once(catalog):
@@ -117,7 +117,7 @@ def test_staged_item_materials_are_bought_once(catalog):
 def test_shower_valve_trim_goes_on_after_the_tile(example):
     steps = stage_steps(estimate(example("bathroom")))
     assert steps[("shower_valve", "rough")]["end_day"] <= steps[("cement_board", "main")]["start_day"]
-    assert steps[("shower_valve", "trim")]["start_day"] >= steps[("tile_shower_walls", "main")]["end_day"] + 1
+    assert steps[("shower_valve", "trim")]["start_day"] >= steps[("tile_shower_walls", "grout")]["end_day"] + 1
 
 
 # ---- 3. drywall coats --------------------------------------------------------
@@ -146,14 +146,32 @@ def test_ceiling_drywall_carries_tape_compound_and_screws(catalog):
     lines = takeoff_for(one_room([{"code": "drywall_ceiling", "qty": 450}]), catalog)
     assert lines["drywall_sheet_4x8"].purchase_qty == 16  # 450 / 32 * 1.12 = 15.75
     assert lines["joint_compound_bucket"].net_qty == pytest.approx(1.0)  # one bucket per 450 sf, all coats
-    assert lines["drywall_tape_roll"].net_qty == pytest.approx(0.75)
-    assert lines["drywall_screws_box"].net_qty == pytest.approx(0.6)
+    assert lines["drywall_tape_roll"].net_qty == pytest.approx(450 / 675, abs=0.001)
+    assert lines["drywall_screws_box"].net_qty == pytest.approx(0.45)
 
 
 def test_wall_drywall_compound_is_not_double_counted_across_coats(catalog):
     lines = takeoff_for(one_room([{"code": "drywall_walls", "qty": 450}]), catalog)
     assert lines["joint_compound_bucket"].net_qty == pytest.approx(1.0)
-    assert lines["drywall_screws_box"].net_qty == pytest.approx(0.5)
+    assert lines["drywall_screws_box"].net_qty == pytest.approx(0.45)
+
+
+@pytest.mark.parametrize("code", ["drywall_walls", "drywall_ceiling"])
+def test_drywall_materials_match_the_published_quantities_per_thousand_sf(catalog, code):
+    """Source checked: 370 ft of tape and 1,250 screws per 1,000 sf, compound inside 9 to 11 gallons."""
+    lines = takeoff_for(one_room([{"code": code, "qty": 1000}]), catalog)
+    assert lines["drywall_tape_roll"].net_qty * 250 == pytest.approx(370, abs=1)  # 250 ft rolls
+    assert lines["drywall_screws_box"].net_qty == pytest.approx(1.0)  # one 5 lb box, about 1,250 screws
+    gallons = lines["joint_compound_bucket"].net_qty * 4.5
+    assert 9 <= gallons <= 11
+    assert gallons == pytest.approx(10, abs=0.01)
+
+
+def test_drywall_dry_time_assumption_states_the_conditions(example):
+    notes = " ".join(estimate(example("bathroom"))["assumptions"])
+    assert "17 hours at 70 F and 50 percent humidity" in notes
+    assert "cool damp basement" in notes and "50 F or warmer" in notes
+    assert "Level 4" in notes
 
 
 def test_ceilings_come_before_walls_for_drywall_and_paint(example):
@@ -170,7 +188,7 @@ def test_shower_is_waterproofed_and_tiled_while_the_drywall_coats_dry(example):
     # paint still waits for both tracks: sanded drywall and cured wall tile
     paint = steps[("paint_ceiling", "main")]
     assert paint["start_day"] >= steps[("drywall_walls", "sand")]["end_day"]
-    assert paint["start_day"] >= steps[("tile_shower_walls", "main")]["end_day"] + 1
+    assert paint["start_day"] >= steps[("tile_shower_walls", "grout")]["end_day"] + 1
 
 
 # ---- 4. baseboard deductions -------------------------------------------------
@@ -368,7 +386,8 @@ EM_DASH = chr(0x2014)
 
 def test_no_em_dashes_in_the_repository():
     checked = 0
-    for folder in ("", ".github/workflows", "data", "demo", "demo/site", "examples", "remodel_estimator", "tests", "web"):
+    for folder in ("", ".github/workflows", "data", "demo", "demo/site", "docs", "examples", "remodel_estimator", "tests",
+                   "web"):
         for path in (REPO_ROOT / folder).glob("*"):
             if path.suffix in (".py", ".json", ".md", ".txt", ".js", ".html", ".css", ".toml", ".yml"):
                 assert EM_DASH not in path.read_text(encoding="utf-8"), path
@@ -391,3 +410,104 @@ def test_readme_excerpt_is_real_output(example):
     assert len(excerpt) > 50
     for line in excerpt:
         assert line in real, line
+
+
+# ---- source checked defaults (see docs/assumptions.md) ------------------------
+
+TILE_CASES = [("bathroom", "tile_floor", 0.13, 0.03), ("bathroom", "tile_shower_walls", 0.18, 0.04),
+              ("kitchen", "backsplash_tile", 0.16, 0.04), ("basement", "tile_floor", 0.13, 0.03)]
+
+
+@pytest.mark.parametrize("name,code,set_rate,grout_rate", TILE_CASES)
+def test_tile_is_set_then_grouted_after_the_mortar_cures(example, catalog, name, code, set_rate, grout_rate):
+    """Grout makers ask for 24 to 48 hours of mortar cure before grouting, so grout is its own visit."""
+    item = catalog.items[code]
+    assert [stage.key for stage in item.stages] == ["set", "grout"]
+    assert item.stages[0].hours_per_unit == pytest.approx(set_rate)
+    assert item.stages[1].hours_per_unit == pytest.approx(grout_rate)
+    assert item.stages[1].setup_hours == 0
+    assert {use.sku for use in item.stages[1].materials} == {"grout_bag"}
+    assert "grout_bag" not in {use.sku for use in item.stages[0].materials}
+    steps = stage_steps(estimate(example(name)))
+    tile, grout = steps[(code, "set")], steps[(code, "grout")]
+    assert tile["wait_days"] == 1 and tile["wait_for"] == "cure"
+    assert grout["wait_days"] == 1 and grout["wait_for"] == "cure"
+    assert grout["start_day"] >= tile["end_day"] + 1
+    assert grout["phase_name"].endswith("grout")
+
+
+def test_splitting_tile_into_two_visits_does_not_change_hours_or_materials(catalog, price_book):
+    est = estimate(one_room([{"code": "slab_floor_prep"}, {"code": "tile_floor"}]), catalog, price_book)
+    hours = hours_by_stage(est)
+    assert hours[("tile_floor", "set")] + hours[("tile_floor", "grout")] == pytest.approx(1.0 + 40 * 0.16)
+    lines = {line["sku"]: line for line in est["takeoff"]}
+    assert lines["grout_bag"]["purchase_qty"] == 1 and lines["grout_bag"]["net_qty"] == pytest.approx(0.4)
+    assert lines["tile_floor_sf"]["purchase_qty"] == 44
+
+
+def test_wall_tile_grout_stays_on_the_shower_track(catalog):
+    # the grout visit follows the wall tile, not the drywall sanding, and paint waits for it
+    assert 58 not in catalog.blockers(67) and 65 in catalog.blockers(67)
+    assert {58, 65, 67} <= catalog.blockers(70)
+    assert catalog.phase_name(82) == "Floor tile grout" and catalog.phase_name(102) == "Backsplash grout"
+
+
+def test_finish_plumbing_waits_for_the_floor_grout(example):
+    steps = stage_steps(estimate(example("bathroom")))
+    grout = steps[("tile_floor", "grout")]
+    for code in ("vanity", "set_toilet"):
+        assert steps[(code, "main")]["start_day"] >= grout["end_day"] + 1, code
+
+
+def test_floating_plank_waste_is_the_makers_ten_percent(catalog):
+    lines = takeoff_for(one_room([{"code": "lvp_floor", "qty": 236}]), catalog)
+    assert lines["lvp_carton"].waste_pct == 10.0
+    assert lines["lvp_carton"].net_qty == pytest.approx(10.0)
+    assert lines["lvp_carton"].purchase_qty == 11
+    assert any("10 percent" in note for note in catalog.items["lvp_floor"].notes)
+
+
+def test_membrane_coverage_sits_inside_the_data_sheet_range(catalog, example):
+    lines = takeoff_for(one_room([{"code": "cement_board", "qty": 100}, {"code": "shower_waterproof", "qty": 100}]),
+                        catalog)
+    finished_sf_per_gallon = 100 / lines["waterproof_membrane_gal"].net_qty
+    assert 40 <= finished_sf_per_gallon <= 55  # two coats; data sheets give 40 to 55
+    assert finished_sf_per_gallon == pytest.approx(50)
+    notes = " ".join(estimate(example("bathroom"))["assumptions"])
+    assert "40 to 55 sf per gallon" in notes and "flood test" in notes
+
+
+def test_paint_coverage_sits_inside_the_data_sheet_range(catalog):
+    uses = {use.sku: use for use in catalog.items["prime_paint_walls"].materials}
+    assert uses["primer_gal"].multiplier == 1 and 300 <= uses["primer_gal"].coverage <= 400
+    assert uses["wall_paint_gal"].multiplier == 2 and 300 <= uses["wall_paint_gal"].coverage <= 400
+
+
+def test_slab_wall_fasteners_are_inside_the_evaluated_spacing(catalog):
+    uses = {use.sku: use for use in catalog.items["frame_walls_slab"].materials}
+    spacing_inches = uses["concrete_fastener_box"].coverage / 100 * 12  # box of 100
+    assert spacing_inches <= 36  # the tighter of the two evaluation reports allows 3 ft
+    assert any("3 or 4 ft" in note for note in catalog.items["frame_walls_slab"].notes)
+
+
+def test_production_rates_are_labelled_as_judgment_not_as_checked():
+    raw = json.loads(DEFAULT_CATALOG.read_text(encoding="utf-8"))
+    assert "judgment" in raw["_rates"]
+    assert "sanity checked" not in raw["_rates"]
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    assert "sanity checked" not in readme
+
+
+def test_readme_assumptions_table_and_notes_file_agree():
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    section = readme.split("## Assumptions a contractor should check")[1].split("\n## ")[0]
+    rows = [line for line in section.splitlines() if line.startswith("| ") and not line.startswith("| ---")][1:]
+    assert len(rows) >= 25
+    statuses = {row.split("|")[3].strip() for row in rows}
+    assert statuses == {"confirmed", "corrected", "judgment"}
+    assert "samples a contractor should replace" in section
+    notes = (REPO_ROOT / "docs" / "assumptions.md").read_text(encoding="utf-8")
+    for row in rows:
+        topic = row.split("|")[1].strip()
+        assert topic in notes, topic
+    assert "Could not open" in notes
