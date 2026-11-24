@@ -126,9 +126,34 @@ Sources that were opened and read:
 
 **Visits rounded to half days** (judgment). A scheduling simplification, not a trade rule.
 
-**Production rates** (judgment). Every hours per unit and setup figure in the catalog. The README used to say these were checked against published labor guides. That could not be verified, because the guides are paid publications that were not opened, so the claim has been withdrawn. Treat every rate as a placeholder for your own job records.
+**Production rates** (judgment). Every hours per unit and setup figure in the catalog. The README used to say these were checked against published labor guides. That could not be verified, because the guides are paid publications that were not opened, so the claim has been withdrawn. Treat every rate as a placeholder for your own job records. See "Compared against the author's own estimates" below for how they line up with planned hours on real estimates.
 
-**Bathroom gut total labor hours** (judgment). The 5 x 8 ft bathroom example comes to about 104 labor hours across all trades. No authoritative published figure for a job of this size was found. It is the sum of the judgment rates above, so it is no better than they are.
+**Bathroom gut total labor hours** (judgment). The 5 x 8 ft bathroom example comes to about 104 labor hours across all trades. No authoritative published figure for a job of this size was found. It is the sum of the judgment rates above, so it is no better than they are. Two of the author's own bathroom estimates plan 92 and 138.5 hours per bathroom, so 104 sits inside that range.
+
+## Compared against the author's own estimates
+
+Added 2026-11-24. The author runs a remodeling company. Its job records were searched for hours to test the sample rates against. No tracked time entries or daily logs were found, so there are no actual hours here. What was found is planned labor hours on a few past estimates. The table sets those beside what this engine produces for the same quantity.
+
+| Line | Engine, sample rates | Author's estimates, planned hours | Estimates | Reading |
+| --- | --- | --- | --- | --- |
+| Small bathroom gut, all trades | 104.0 hours (bathroom example) | 92 and 138.5 hours per bathroom | 2 | inside the range |
+| Bathroom demolition | 13.8 hours | 14 and 20 hours per bathroom | 2 | low end of the range |
+| Tile set and grout, 40 sf floor plus 75 sf shower wall | 24.9 hours | 24 hours | 1 | close |
+| Plumbing rough-in plus setting fixtures, one bathroom | 21.5 hours, plus 2.0 for the vanity | about 20 and 29 hours | 2 | inside the range |
+| Electrical with exhaust fan, one bathroom | 8.7 hours | about 8 and 14 hours | 2 | low end of the range |
+| Floating plank floor, 164 sf | 9.2 hours | 8 hours | 1 | close |
+| Base and wall cabinets, per linear foot | 0.53 hours (kitchen example, 26 lf) | 0.55 hours (22 lf) | 1 | close |
+| Baseboard, 220 lf | 11.5 hours | 16 hours | 1 | engine is about 30 percent low |
+
+What this does and does not show:
+
+- These are planned hours, written before the work. Nothing here says the jobs were built in those hours.
+- Each line rests on one or two estimates. That is enough to say a rate is not wildly off, and not enough to set it.
+- The larger bathroom estimate includes framing (about 9 percent of its hours) and a setup and cleanup allowance (about 6.5 percent). The bathroom example here has no framing item, which accounts for part of the gap between 104 and 138.5.
+- Baseboard is the one line where the records sit clearly above the sample rate. One estimate plans about 7.3 hours per 100 lf against 5 hours per 100 lf plus half an hour of setup here. If your trim runs like that estimate, set `hours_per_unit` for `baseboard` to 0.07.
+- No records were found for: hours in a working day, crew sizes, a pull and replace bathroom, a basement finish of this scope, drywall hang and finish separately, paint on its own, doors, occupied against empty houses, overruns, or trade minimums.
+
+So the rates keep the status judgment. The comparison moves them from unchecked to roughly consistent with one contractor's planning numbers.
 
 ## What changed in the catalog
 

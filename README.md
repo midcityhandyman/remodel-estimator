@@ -229,6 +229,8 @@ If your price book is missing a SKU or a trade that the scope needs, the estimat
 
 **The production rates are sample values and are judgment.** The hours per unit in the catalog are not measured from any crew, and they are not confirmed by any published labor guide: those guides are paid publications that could not be opened when the defaults were source checked. A contractor should replace them with numbers from their own jobs before trusting the labor hours or the schedule.
 
+They have since been compared against planned hours in a few of the author's own past remodel estimates. The bathroom total, demolition, tile, plank flooring and cabinets land close; baseboard runs low. That is planned hours from one or two estimates per line, not tracked actuals, so it is a sanity range and not a calibration. The numbers are in [`docs/assumptions.md`](docs/assumptions.md).
+
 ## Assumptions a contractor should check
 
 These are the defaults built into the catalog and the examples. Each one was looked up against manufacturer installation instructions and data sheets, gypsum industry documents, building code commentary and whatever published references could be opened, then labelled:
@@ -276,8 +278,8 @@ All prices and rates here are samples a contractor should replace with their own
 | Baseboard deductions | perimeter less 3 lf per door, less listed runs | judgment | estimating convention; the arithmetic is printed |
 | Trim painted after it is installed | own paint visit: fill, caulk, two coats | judgment | none |
 | Visits rounded to half days | one trade, one room, one phase is one visit | judgment | scheduling simplification |
-| Production rates | every hours per unit in the catalog (tile 0.16 and 0.22 per sf, drywall 0.045 and 0.06, paint 0.025, and the rest) | judgment | labor guides could not be opened |
-| Bathroom gut total labor hours | about 104 hours for the 5 x 8 ft example | judgment | no authoritative figure found; it is the sum of the rates above |
+| Production rates | every hours per unit in the catalog (tile 0.16 and 0.22 per sf, drywall 0.045 and 0.06, paint 0.025, and the rest) | judgment | labor guides could not be opened; compared against planned hours in the author's own estimates, no tracked actuals |
+| Bathroom gut total labor hours | about 104 hours for the 5 x 8 ft example | judgment | no published figure found; two of the author's own bathroom estimates plan 92 and 138.5 hours |
 
 Four rows were corrected in this review: three material quantities and one sequence. None of them moved a sample total, because each corrected quantity still rounds up to the same whole boxes, rolls and cartons in the three examples. The tile correction made each example two working days longer.
 
