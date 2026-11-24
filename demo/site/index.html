@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Read-only demo of a remodel estimating engine. Sample prices only, not a quote.">
+  <title>Remodel Estimator: read-only demo (sample prices)</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <header>
+    <h1>Remodel Estimator <span class="tag">read-only demo</span></h1>
+    <div id="demo-banner" class="banner" role="note">
+      <p><strong>Sample prices only. This is not a quote.</strong> Every dollar figure on this page is invented for demonstration and does not price any real job.</p>
+      <p>This is a read-only demo of the three example scopes bundled with the project (bathroom, kitchen, basement). Nothing here can be edited or submitted.</p>
+      <p>To estimate your own scope with your own prices, clone <a href="https://github.com/midcityhandyman/remodel-estimator">the repository</a> and run it locally.</p>
+    </div>
+  </header>
+
+  <main class="demo">
+    <section aria-label="Bundled examples">
+      <h2>Bundled examples</h2>
+      <nav id="examples" class="cards" aria-label="Choose an example">
+      <!-- EXAMPLE_CARDS -->
+      </nav>
+      <p class="hint">Each example was computed when this page was built, by the same engine the command line tool uses. Pick one to see the takeoff, labor, sequence, totals and assumptions.</p>
+      <noscript><p class="hint">The detail tables need JavaScript. The sample totals above and the JSON files under data/ are static.</p></noscript>
+      <ul id="errors" class="errors" aria-live="polite"></ul>
+    </section>
+
+    <section id="result-panel" aria-label="Example estimate">
+      <h2 id="project-title">Example estimate</h2>
+      <p id="empty-state">Loading the example...</p>
+      <div id="result" hidden>
+        <p class="hint">Sample figures from the bundled sample price book. <a id="json-link" href="data/bathroom.json">Raw JSON for this example</a></p>
+        <div id="totals" class="cards"></div>
+        <h3>Rooms in this example</h3>
+        <table id="rooms-table"></table>
+        <h3>Totals (sample)</h3>
+        <table id="totals-table"></table>
+        <h3>Direct cost by trade (sample)</h3>
+        <table id="trade-table"></table>
+        <h3>Material takeoff by trade</h3>
+        <table id="takeoff-table"></table>
+        <h3>Labor by trade</h3>
+        <table id="labor-table"></table>
+        <h3 id="schedule-title">Sequence</h3>
+        <table id="schedule-table"></table>
+        <h3>Notes</h3>
+        <ul id="warnings"></ul>
+        <h3>Assumptions to check</h3>
+        <ul id="assumptions"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer><!-- PRICE_BOOK_NOTICE --> Read-only demo of bundled examples; not an offer or a quote.</footer>
+  <script src="demo.js"></script>
+</body>
+</html>

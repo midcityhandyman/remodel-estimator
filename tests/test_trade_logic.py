@@ -368,7 +368,7 @@ EM_DASH = chr(0x2014)
 
 def test_no_em_dashes_in_the_repository():
     checked = 0
-    for folder in ("", "data", "demo", "examples", "remodel_estimator", "tests", "web"):
+    for folder in ("", ".github/workflows", "data", "demo", "demo/site", "examples", "remodel_estimator", "tests", "web"):
         for path in (REPO_ROOT / folder).glob("*"):
             if path.suffix in (".py", ".json", ".md", ".txt", ".js", ".html", ".css", ".toml", ".yml"):
                 assert EM_DASH not in path.read_text(encoding="utf-8"), path
